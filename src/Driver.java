@@ -4,6 +4,8 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
@@ -17,10 +19,20 @@ public class Driver {
 	final static float LINEAR_SPEED = 300;// How fast in a straight line (mm/sec)
 	
 	public static void main(String[] args) {
+		// Initialise objects
 		MovePilot plt = getPilot(MotorPort.A, MotorPort.B, WHEEL_DIAMETER, AXLE_LENGTH / 2);
+		EV3UltrasonicSensor us = new EV3UltrasonicSensor(SensorPort.S1);
+		
 		plt.setLinearSpeed(LINEAR_SPEED);
 		
-		LCD.drawString("TrackBot", 2, 2);
+		float boxDistance = Calibration.calibrateUs(us);
+		
+		LCD.clear();
+		LCD.drawString("Calibration completed!", 0, 2);
+		LCD.drawString("boxDistance: " + boxDistance, 0, 3);
+		
+		
+		LCD.drawString("TrackBot v1", 1, 1);
 		Button.ENTER.waitForPressAndRelease();
 		
 		for (int i = 0; i < 4; i++) {
