@@ -10,7 +10,7 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-import lejos.utility.Delay;
+import lejos.robotics.subsumption.Behavior;
 
 public class Driver {
 	final static float WHEEL_DIAMETER = 35; // Diameter (mm) of the wheels
@@ -35,16 +35,18 @@ public class Driver {
 		LCD.drawString("TrackBot v1", 1, 1);
 		Button.ENTER.waitForPressAndRelease();
 		
-		for (int i = 0; i < 4; i++) {
-			boolean move=true;
-			if(!plt.isMoving() & move) {
-				plt.forward();
-				Delay.msDelay(1500);
-				move=false;
-			}
-			plt.rotate(90);
-			
-		}
+		Thread backgroundMusic = new MusicThread();
+		backgroundMusic.setDaemon(true);
+		
+		// Turn around box
+		Behavior boxEdge = new BoxEdge();
+		Behavior boxCorner = new BoxCorner();
+		
+		// Recognise the color of the box/brick/whatever
+		Behavior colorScanner = new ColorScanner();
+		
+		// Flip bomb
+		Behavior bombFlipper = new BombFlipper();
 	}
 	
 	private static MovePilot getPilot(Port left, Port right, float diam, float offset){
