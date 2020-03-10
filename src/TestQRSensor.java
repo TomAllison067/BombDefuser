@@ -9,6 +9,7 @@ public class TestQRSensor {
 		AndroidSensor sensor = new AndroidSensor();
 		sensor.startThread();
 		
+		LCD.drawString("Press ENTER for message", 1, 1);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.drawString("Message:" + sensor.getMessage(), 0, 1);
 		Button.ENTER.waitForPressAndRelease();

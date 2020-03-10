@@ -9,6 +9,10 @@ public class AndroidSensor {
 		connectionThread.start();
 	}
 	
+	public void killThread() {
+		connectionThread.interrupt();
+	}
+	
 	public String getMessage() {
 		String message = connectionThread.getMessage();
 		return message;

@@ -48,7 +48,9 @@ public class ConnectionThread extends Thread{
 					for (int i = 0; i < read; i++) {
 						str.append((char)buffer[i]);
 					}
-					message = str.toString();
+					if (message != null) {
+						message = str.toString();
+					}
 				}
 			}
 		} catch (IOException e) {
