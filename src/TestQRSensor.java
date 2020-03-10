@@ -3,15 +3,24 @@ import lejos.hardware.lcd.LCD;
 
 public class TestQRSensor {
 	public static void main(String[] args) {
-		LCD.drawString("TestQRSensor v1", 0, 0);
-		LCD.drawString("Connecting...", 0, 6);
+		LCD.drawString("TestQRSensor v2", 0, 0);
+		
+		LCD.drawString("Enter to connect", 1, 1);
+		Button.ENTER.waitForPressAndRelease();
+		LCD.clear();
 		
 		AndroidSensor sensor = new AndroidSensor();
 		sensor.startThread();
 		
-		LCD.drawString("Press ENTER for message", 1, 1);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.drawString("Message:" + sensor.getMessage(), 0, 1);
-		Button.ENTER.waitForPressAndRelease();
+		while(!Button.ESCAPE.isDown()) {
+			if (Button.ENTER.isDown()) {
+				LCD.clear();
+				LCD.drawString(sensor.getMessage(), 3, 1);
+			}
+			
+		}
+		System.exit(0);
+		
+		
 	}
 }

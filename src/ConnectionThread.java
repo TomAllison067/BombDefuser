@@ -18,7 +18,7 @@ public class ConnectionThread extends Thread{
 	private static int MAX_READ = 30;
 	private static BufferedInputStream in = null;
 	private static OutputStream out = null; // Output - not currently used
-	private static String message = null;
+	private static String message = "NONE";
 	
 	public void run() {
 		try {
@@ -36,24 +36,23 @@ public class ConnectionThread extends Thread{
 				in = new BufferedInputStream(connection.getInputStream());
 				out = connection.getOutputStream();
 			}
-			LCD.clear();
-			
-			LCD.drawString("Connected", 0, 0);
+			LCD.drawString("Connected", 0, 6);
 			
 			// We are now connected and running!
-			while (connection != null) {
+			while (true) {
 				if (in.available() > 0) {
 					int read = in.read(buffer, 0, MAX_READ);
 					StringBuilder str = new StringBuilder();
 					for (int i = 0; i < read; i++) {
 						str.append((char)buffer[i]);
 					}
-					if (message != null) {
+					if (!str.toString().equals("NONE") && str.toString() != null) {
 						message = str.toString();
 					}
 				}
 			}
 		} catch (IOException e) {
+			LCD.clear();
 			LCD.drawString(e.getMessage(), 0, 6);
 			connection = null;
 		}
