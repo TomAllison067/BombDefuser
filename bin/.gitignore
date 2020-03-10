@@ -1,1 +1,6 @@
-*.class
+/Connect.class
+/Flipper.class
+/MusicPlayer.class
+/MusicStopper.class
+/MusicTimer.class
+/findColor.class

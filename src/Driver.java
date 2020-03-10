@@ -38,15 +38,6 @@ public class Driver {
 		Thread backgroundMusic = new MusicThread();
 		backgroundMusic.setDaemon(true);
 		
-		// Turn around box
-		Behavior boxEdge = new BoxEdge();
-		Behavior boxCorner = new BoxCorner();
-		
-		// Recognise the color of the box/brick/whatever
-		Behavior colorScanner = new ColorScanner();
-		
-		// Flip bomb
-		Behavior bombFlipper = new BombFlipper();
 	}
 	
 	private static MovePilot getPilot(Port left, Port right, float diam, float offset){

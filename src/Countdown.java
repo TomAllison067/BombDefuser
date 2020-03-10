@@ -4,6 +4,7 @@ import lejos.hardware.lcd.*;
 public class Countdown extends TimerTask{
     private int count = 0;
     public void run(){
+    	
         count ++;
         LCD.clear();
         if(count <= 230){
