@@ -6,13 +6,15 @@ import lejos.robotics.subsumption.Behavior;
 
 public class TurnLeft implements Behavior {
 
-	MotorContainer container;
-	EV3UltrasonicSensor sensor;
+	private EV3UltrasonicSensor sensor;
+	private MotorContainer container;
+	private float maxDistance;
 	
-	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor) {
+	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float distance) {
 		super();
 		this.container = container;
 		this.sensor = sensor;
+		this.maxDistance = distance;
 	}
 
 	@Override
@@ -22,13 +24,16 @@ public class TurnLeft implements Behavior {
 		
 		provider.fetchSample(sample, 0);
 		
-		return sample[0] > Driver.DISTANCE_MAX;
+		return sample[0] > maxDistance;
 		
 	}
 
 	@Override
 	public void action() {
-		container.correctLeft();
+		float[] sample = new float[1];
+		SampleProvider provider = sensor.getDistanceMode();
+		provider.fetchSample(sample, 0);
+		container.correctLeft(sample[0], maxDistance);
 		
 	}
 

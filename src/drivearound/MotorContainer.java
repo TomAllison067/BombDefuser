@@ -25,7 +25,8 @@ public class MotorContainer {
 		return mRight;
 	}
 
-	public void correctLeft() {
+	public void correctLeft(float distance, float offset) {
+//		this.mLeft.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mLeft.setSpeed(70);
 		this.mRight.setSpeed(200);
 		mLeft.startSynchronization();
@@ -38,8 +39,9 @@ public class MotorContainer {
 		mLeft.endSynchronization();
 	}
 	
-	public void correctRight() {
+	public void correctRight(float distance, float offset) {
 		this.mLeft.setSpeed(200);
+//		this.mRight.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mRight.setSpeed(70);
 		mLeft.startSynchronization();
 		
