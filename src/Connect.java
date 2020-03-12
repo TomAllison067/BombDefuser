@@ -11,7 +11,7 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 
 public class Connect {
-	private static String IPaddress = "10.2.177.18";
+	private static String IPaddress = "10.0.1.4";
 	private static int port = 1234;
 	public static Socket connection = new Socket();
 	public static DataInputStream dis;
