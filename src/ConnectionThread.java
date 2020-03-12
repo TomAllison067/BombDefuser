@@ -28,6 +28,7 @@ public class ConnectionThread extends Thread {
 	/**
 	 * Connect to the phone via bluetooth and continously monitor for any updates to the QR message.
 	 */
+	@Override
 	public void run() {
 		try {
 			LCD.clear();
