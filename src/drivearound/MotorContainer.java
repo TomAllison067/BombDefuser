@@ -5,6 +5,8 @@ import lejos.utility.Delay;
 
 public class MotorContainer {
 	
+	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
+	
 	private BaseRegulatedMotor mLeft;
 	private BaseRegulatedMotor mRight;
 	
@@ -82,6 +84,33 @@ public class MotorContainer {
 	public void setSpeed(float speed) {
 		mLeft.setSpeed(speed);
 		mRight.setSpeed(speed);
+	}
+	
+	public void turnLeft(int angle) {
+		setSpeed(360);
+		
+		mLeft.startSynchronization();
+		mLeft.backward();
+		mRight.forward();
+		mLeft.endSynchronization();
+		
+		Delay.msDelay(MILLISECOND_1_DEGREE_INPLACE * angle);
+		
+		stop();
+	}
+	
+
+	public void turnRight(int angle) {
+		setSpeed(360);
+		
+		mLeft.startSynchronization();
+		mLeft.forward();
+		mRight.backward();
+		mLeft.endSynchronization();
+		
+		Delay.msDelay(MILLISECOND_1_DEGREE_INPLACE * angle);
+		
+		stop();
 	}
 
 }
