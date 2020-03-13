@@ -83,7 +83,7 @@ public class ConnectionThread extends Thread {
 	 * @return the QR code's string
 	 */
 	public String readQR(BufferedInputStream in, byte[] buffer) throws IOException {
-		String message = "NONE";
+		String message = null;
 		if (in.available() > 0) {
 			int read = in.read(buffer, 0, MAX_READ);
 			StringBuilder str = new StringBuilder();

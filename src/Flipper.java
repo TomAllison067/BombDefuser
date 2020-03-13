@@ -3,50 +3,68 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.robotics.Color;
+import lejos.robotics.SampleProvider;
+import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class Flipper {
+public class Flipper implements Behavior{
 
-	public static void main(String[] args) {
-		BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
-		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
-		BaseRegulatedMotor mFront = new EV3LargeRegulatedMotor(MotorPort.C);
+	BaseRegulatedMotor mFront = new EV3LargeRegulatedMotor(MotorPort.C);
 
-		mLeft.synchronizeWith ( new BaseRegulatedMotor [] { mRight });
+	Bomb bomb;
+	EV3ColorSensor colorSensor;
+	MotorContainer container;
+	
+	public Flipper(MotorContainer container, Bomb bomb, EV3ColorSensor colorSensor) {
+		this.container = container;
+		this.bomb = bomb;
+		this.colorSensor = colorSensor;
+	}
+	
+	@Override
+	public boolean takeControl() {
+		SampleProvider provider = colorSensor.getColorIDMode();
+		float[] sample = new float[1];
 		
-		mLeft.setSpeed (720); // 2 Revolutions Per Second ( RPS )
-		mRight.setSpeed (720);
+		provider.fetchSample(sample, 0);
+		
+		return bomb.getNextColor() == 'G' && sample[0] == Color.GREEN;
+		
+	}
+
+	@Override
+	public void action() {
+		
+		bomb.startTask();
+		
 		mFront.setSpeed (1300);
 		
 		LCD.drawString("Press ENTER to go", 1,2);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
+
+
+		container.turnLeft(90);
+
+		container.forward();
+		Delay.msDelay(2000);
+		container.stop();
+
+		mFront.rotateTo(-90);
+		mFront.waitComplete();
+		mFront.rotateTo(0);
 		
-		mLeft.startSynchronization();
-		mLeft.forward();
-		mRight.backward();
-		mLeft.endSynchronization();
-		Delay.msDelay(1000);
-		mLeft.stop();
-		mRight.stop();
-		
-		mLeft.startSynchronization();
-		mLeft.rotate(200);
-		mRight.rotate(200);
-		mLeft.endSynchronization();
-		
-		mFront.backward();
-		Delay.msDelay(350);
-		mFront.forward();
-		Delay.msDelay(350);
-		mFront.stop();
-		
-		mLeft.close();
-		mRight.close();
 		mFront.close();
 		
-		
+		bomb.increment();
+	}
 
+	@Override
+	public void suppress() {
+		// TODO Auto-generated method stub
+		
 	}
 		
 }

@@ -1,4 +1,4 @@
-package drivearound;
+
 
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
@@ -8,11 +8,13 @@ public class TurnLeft implements Behavior {
 
 	MotorContainer container;
 	EV3UltrasonicSensor sensor;
+	Bomb bomb;
 	
-	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor) {
+	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, Bomb bomb) {
 		super();
 		this.container = container;
 		this.sensor = sensor;
+		this.bomb = bomb;
 	}
 
 	@Override
@@ -22,7 +24,7 @@ public class TurnLeft implements Behavior {
 		
 		provider.fetchSample(sample, 0);
 		
-		return sample[0] > Driver.DISTANCE_MAX;
+		return !bomb.isTaskActive() && sample[0] > Variables.DISTANCE_MAX;
 		
 	}
 
