@@ -1,5 +1,6 @@
 
 import lejos.robotics.subsumption.Behavior;
+import synchronize.SynchronizedContainer;
 
 public class BatteryBehavior implements Behavior {
 	private SynchronizedContainer sync;

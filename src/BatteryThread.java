@@ -1,6 +1,7 @@
 import lejos.hardware.Battery;
 import lejos.hardware.Sound;
 import lejos.utility.Delay;
+import synchronize.SynchronizedContainer;
 
 /**
  * Class to monitor the state of the battery - as required in the project spec.
