@@ -1,21 +1,22 @@
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import lejos.robotics.subsumption.Behavior;
 
 public class BatteryBehavior implements Behavior {
-	private AtomicBoolean shutdown;
+	private SynchronizedContainer sync;
 	
-	public BatteryBehavior(AtomicBoolean _shutdown) {
-		this.shutdown = _shutdown;
+	public BatteryBehavior(SynchronizedContainer _sync) {
+		this.sync = _sync;
 	}
 	
 	public boolean takeControl() {
-		return shutdown.get();
+		return sync.getShutdownFlag();
 	}
 	
-	public void suppress() {}
+	public void suppress() {
+		// Stop action() and go back to main behaviour - TODO (very hard)
+	}
 	
 	public void action() {
-		// Stop everything - TODO
+		// Stop everything and exit the robot gracefully - TODO
 	}
 }
