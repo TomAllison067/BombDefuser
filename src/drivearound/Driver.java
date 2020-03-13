@@ -14,13 +14,20 @@ import lejos.utility.Delay;
 
 public class Driver {
 
+	/**
+	 * 4.50 + 13.61 = 18.11cm chassis width
+	 */
 	/****************************************/
 	public static final float DISTANCE_DIFFERENCE = 0.03f;
 	public static final float SECONDS_1_DEGREE = 0.062644444f;
 	public static final long MILLISECONDS_1_DEGREE = 63;
+	public static final float CHASSIS_WIDTH = 0.1811f; // in meters
+	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
 	/****************************************/
 	
 	public static void main(String[] args) {
+
+		float[] sample = new float[1];
 		float minDistance;
 		float maxDistance;
 		
@@ -32,24 +39,35 @@ public class Driver {
 	
 		MotorContainer container = new MotorContainer(mLeft, mRight);
 		EV3UltrasonicSensor distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
-		
+
 		LCD.clear();
 		LCD.drawString("Rotate", 2, 2);
+		
 		Button.ENTER.waitForPressAndRelease();
 		
-		int angle = 360;
-		
-		mLeft.setSpeed(Math.round(angle * 0.5));
-		mRight.setSpeed(angle);
+		float speed = 360;
+		mRight.setSpeed(speed);
+		mLeft.setSpeed(speed * 0.5f);
 		
 		mLeft.startSynchronization();
-		mLeft.forward();
 		mRight.forward();
+		mLeft.forward();
 		mLeft.endSynchronization();
 		
-		Delay.msDelay(MILLISECONDS_1_DEGREE * 180);
-		container.stop();
+//		long time = System.currentTimeMillis();
+//		
+//		do {
+//			
+//		} while (Button.ENTER.isUp());
+//		LCD.clear();
+//		LCD.drawString("" + (System.currentTimeMillis() - time), 2, 2);		
 		
+		Delay.msDelay(15 * 4 * 90);
+		
+		container.stop();
+
+		
+		Button.ENTER.waitForPressAndRelease();
 		Button.ENTER.waitForPressAndRelease();
 		
 		LCD.clear();
@@ -58,8 +76,6 @@ public class Driver {
 		
 		LCD.clear();
 		LCD.drawString("Place the robot", 1, 2);
-		
-		float sample[] = new float[1];
 
 		do {
 			SampleProvider provider = distanceSensor.getDistanceMode();

@@ -1,3 +1,4 @@
+import drivearound.MotorContainer;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
@@ -12,34 +13,25 @@ public class Flipper {
 		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
 		BaseRegulatedMotor mFront = new EV3LargeRegulatedMotor(MotorPort.C);
 
+		MotorContainer container = new MotorContainer(mLeft, mRight);
+		
 		mLeft.synchronizeWith ( new BaseRegulatedMotor [] { mRight });
 		
-		mLeft.setSpeed (720); // 2 Revolutions Per Second ( RPS )
-		mRight.setSpeed (720);
 		mFront.setSpeed (1300);
 		
 		LCD.drawString("Press ENTER to go", 1,2);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
+
+		container.turnLeft(90);
 		
-		mLeft.startSynchronization();
-		mLeft.forward();
-		mRight.backward();
-		mLeft.endSynchronization();
+		container.forward();
 		Delay.msDelay(1000);
-		mLeft.stop();
-		mRight.stop();
+		container.stop();
 		
-		mLeft.startSynchronization();
-		mLeft.rotate(200);
-		mRight.rotate(200);
-		mLeft.endSynchronization();
-		
-		mFront.backward();
-		Delay.msDelay(350);
-		mFront.forward();
-		Delay.msDelay(350);
-		mFront.stop();
+		mFront.rotateTo(-90);
+		mFront.waitComplete();
+		mFront.rotateTo(0);
 		
 		mLeft.close();
 		mRight.close();

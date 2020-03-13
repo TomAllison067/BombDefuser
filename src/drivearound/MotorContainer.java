@@ -4,6 +4,11 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.utility.Delay;
 
 public class MotorContainer {
+
+	/**
+	 * time in millis for 90deg -> 1380
+	 * 1deg -> 15
+	 */
 	
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
 	
@@ -13,9 +18,6 @@ public class MotorContainer {
 	public MotorContainer(BaseRegulatedMotor mLeft, BaseRegulatedMotor mRight) {
 		this.mLeft = mLeft;
 		this.mRight = mRight;
-		
-		this.mLeft.setSpeed(270);
-		this.mRight.setSpeed(270);
 		
 	}
 
@@ -82,6 +84,12 @@ public class MotorContainer {
 	}
 	
 	public void setSpeed(float speed) {
+		mLeft.setSpeed(speed);
+		mRight.setSpeed(speed);
+	}
+	
+
+	public void setSpeed(int speed) {
 		mLeft.setSpeed(speed);
 		mRight.setSpeed(speed);
 	}
