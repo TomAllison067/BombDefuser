@@ -1,9 +1,15 @@
-
-
+package utils;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.utility.Delay;
 
 public class MotorContainer {
+
+	/**
+	 * time in millis for 90deg -> 1380
+	 * 1deg -> 15
+	 */
+	
+	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
 	
 	private BaseRegulatedMotor mLeft;
 	private BaseRegulatedMotor mRight;
@@ -11,9 +17,6 @@ public class MotorContainer {
 	public MotorContainer(BaseRegulatedMotor mLeft, BaseRegulatedMotor mRight) {
 		this.mLeft = mLeft;
 		this.mRight = mRight;
-		
-		this.mLeft.setSpeed(270);
-		this.mRight.setSpeed(270);
 		
 	}
 
@@ -26,6 +29,7 @@ public class MotorContainer {
 	}
 
 	public void correctLeft() {
+//		this.mLeft.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mLeft.setSpeed(70);
 		this.mRight.setSpeed(200);
 		mLeft.startSynchronization();
@@ -40,6 +44,7 @@ public class MotorContainer {
 	
 	public void correctRight() {
 		this.mLeft.setSpeed(200);
+//		this.mRight.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mRight.setSpeed(70);
 		mLeft.startSynchronization();
 		
@@ -80,6 +85,39 @@ public class MotorContainer {
 	public void setSpeed(float speed) {
 		mLeft.setSpeed(speed);
 		mRight.setSpeed(speed);
+	}
+	
+
+	public void setSpeed(int speed) {
+		mLeft.setSpeed(speed);
+		mRight.setSpeed(speed);
+	}
+	
+	public void turnLeft(int angle) {
+		setSpeed(360);
+		
+		mLeft.startSynchronization();
+		mLeft.backward();
+		mRight.forward();
+		mLeft.endSynchronization();
+		
+		Delay.msDelay(MILLISECOND_1_DEGREE_INPLACE * angle);
+		
+		stop();
+	}
+	
+
+	public void turnRight(int angle) {
+		setSpeed(360);
+		
+		mLeft.startSynchronization();
+		mLeft.forward();
+		mRight.backward();
+		mLeft.endSynchronization();
+		
+		Delay.msDelay(MILLISECOND_1_DEGREE_INPLACE * angle);
+		
+		stop();
 	}
 
 }

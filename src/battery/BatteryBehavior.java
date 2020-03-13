@@ -1,3 +1,4 @@
+package battery;
 
 import lejos.robotics.subsumption.Behavior;
 import synchronize.SynchronizedContainer;

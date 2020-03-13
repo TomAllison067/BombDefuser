@@ -1,3 +1,4 @@
+package tasks;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
@@ -8,6 +9,8 @@ import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
+import utils.Bomb;
+import utils.MotorContainer;
 
 public class Flipper implements Behavior{
 
