@@ -27,7 +27,7 @@ public class MotorContainer {
 	public BaseRegulatedMotor getmRight() {
 		return mRight;
 	}
-
+	
 	public void correctLeft() {
 //		this.mLeft.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mLeft.setSpeed(70);
@@ -56,6 +56,9 @@ public class MotorContainer {
 		mLeft.endSynchronization();
 	}
 	
+	/**
+	 * Stop the motors
+	 */
 	public void stop() {
 		mLeft.startSynchronization();
 		mLeft.stop();
@@ -63,36 +66,56 @@ public class MotorContainer {
 		mLeft.endSynchronization();
 	}
 	
+	/**
+	 * Move the motors forward simultaneously at the current speed
+	 */
 	public void forward() {
-		this.mLeft.setSpeed(180);
-		this.mRight.setSpeed(180);
 		mLeft.startSynchronization();
 		mLeft.forward();
 		mRight.forward();
 		mLeft.endSynchronization();
 	}
 	
+	/**
+	 * 
+	 * @return true if the motors are not moving and false if otherwise
+	 */
 	public boolean isStalled() {
 		Delay.msDelay(500);
 		return mLeft.isStalled() && mRight.isStalled();
 	}
 
+	/**
+	 * 
+	 * @return true if the motors are moving and false if otherwise
+	 */
 	public boolean isMoving() {
 		Delay.msDelay(500);
 		return mLeft.isMoving() || mRight.isMoving();
 	}
 	
+	/**
+	 * Set speed of the motors in deg/sec
+	 * @param speed in deg/sec
+	 */
 	public void setSpeed(float speed) {
 		mLeft.setSpeed(speed);
 		mRight.setSpeed(speed);
 	}
 	
-
+	/**
+	 * Set speed of the motors in deg/sec
+	 * @param speed in deg/sec
+	 */
 	public void setSpeed(int speed) {
 		mLeft.setSpeed(speed);
 		mRight.setSpeed(speed);
 	}
 	
+	/**
+	 * Turn the track chassis left at the speed of 360 deg/sec
+	 * @param angle to turn in degrees
+	 */
 	public void turnLeft(int angle) {
 		setSpeed(360);
 		
@@ -106,7 +129,10 @@ public class MotorContainer {
 		stop();
 	}
 	
-
+	/**
+	 * Turn the track chassis left at the speed of 360 deg/sec
+	 * @param angle to turn in degrees
+	 */
 	public void turnRight(int angle) {
 		setSpeed(360);
 		
