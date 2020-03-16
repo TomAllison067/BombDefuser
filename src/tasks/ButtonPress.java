@@ -1,3 +1,4 @@
+package tasks;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
