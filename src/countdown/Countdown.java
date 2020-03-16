@@ -1,3 +1,4 @@
+package countdown;
 import java.util.TimerTask;
 
 import lejos.hardware.lcd.LCD;

@@ -1,3 +1,4 @@
+package battery;
 import lejos.hardware.Battery;
 import lejos.hardware.Sound;
 import lejos.utility.Delay;

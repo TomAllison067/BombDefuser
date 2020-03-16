@@ -1,19 +1,27 @@
+package drivearound;
 
 
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
+import utils.Bomb;
+import utils.MotorContainer;
 
 public class ForwardTest implements Behavior {
 
 	private MotorContainer container;
 	private EV3UltrasonicSensor sensor;
 	private Bomb bomb;
-	public ForwardTest(MotorContainer container, EV3UltrasonicSensor sensor, Bomb bomb) {
+	private float minDistance;
+	private float maxDistance;
+	
+	public ForwardTest(MotorContainer container, EV3UltrasonicSensor sensor, float minDistance, float maxDistance, Bomb bomb) {
 		super();
 		this.container = container;
 		this.sensor = sensor;
 		this.bomb = bomb;
+		this.minDistance = minDistance;
+		this.maxDistance = maxDistance;
 		
 	}
 
@@ -24,7 +32,7 @@ public class ForwardTest implements Behavior {
 		
 		provider.fetchSample(sample, 0);
 		
-		return !bomb.isTaskActive() &&  sample[0] < Variables.DISTANCE_MAX && sample[0] > Variables.DISTANCE_MIN;
+		return !bomb.isTaskActive() &&  sample[0] < maxDistance && sample[0] > minDistance;
 		
 	}
 

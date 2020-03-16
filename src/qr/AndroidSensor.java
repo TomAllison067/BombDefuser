@@ -1,3 +1,4 @@
+package qr;
 /**
  * Represents the phone sensor. Simply creates a new thread that connects the phone via bluetooth and then continously monitors the camera for a new QR code reading.
  * @author Tom

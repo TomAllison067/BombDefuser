@@ -1,3 +1,6 @@
+import drivearound.ForwardTest;
+import drivearound.TurnLeft;
+import drivearound.TurnRight;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
@@ -6,16 +9,17 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import music.MusicThread;
+import qr.AndroidSensor;
+import tasks.Flipper;
+import utils.Bomb;
+import utils.MotorContainer;
 
 public class Driver {
-
-	/************/
-	public static float DISTANCE_MAX = 0.085f;
-	public static float DISTANCE_MIN = 0.055f;
-	/************/
+	
+	private static final float DISTANCE_DIFFERENCE = 0.03f;
 	
 	public static void main(String[] args) {
 		LCD.drawString("Initialising...", 2, 2);
@@ -27,7 +31,26 @@ public class Driver {
 		MotorContainer container = new MotorContainer(mLeft, mRight);
 		EV3UltrasonicSensor distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
 		EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S2);
-				
+			
+		Button.ENTER.waitForPressAndRelease();
+		
+		LCD.clear();
+		LCD.drawString("Calibrate", 2, 2);
+		
+		Button.ENTER.waitForPressAndRelease();
+		
+		LCD.clear();
+		LCD.drawString("Place the robot...", 2, 2);
+		
+		float[] sample = new float[1];
+		do {
+			SampleProvider provider = distanceSensor.getDistanceMode();
+			provider.fetchSample(sample, 0);
+		} while (Button.ENTER.isUp());
+
+		float minDistance = sample[0] - (DISTANCE_DIFFERENCE / 2);
+		float maxDistance = sample[0] + (DISTANCE_DIFFERENCE / 2);
+		
 		LCD.clear();
 		LCD.drawString("Press Enter", 2, 2);
 		Button.ENTER.waitForPressAndRelease();
@@ -56,8 +79,8 @@ public class Driver {
 														new ForwardTest(container, distanceSensor, bomb),
 														new Flipper(container, bomb, colorSensor), 
 														new ButtonPress(container, bomb, colorSensor)
-														}
-										);
+
+		});
 		arb.go();
 		
 		distanceSensor.close();
