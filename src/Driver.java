@@ -74,12 +74,13 @@ public class Driver {
 		Bomb bomb = new Bomb(bombType);
 		bomb.startBomb();
 		
-		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, maxDistance, bomb),
-														new TurnRight(container, distanceSensor, minDistance, bomb),
-														new ForwardTest(container, distanceSensor, minDistance, maxDistance, bomb),
-														new Flipper(container, bomb, colorSensor)
-														}
-										);
+		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, bomb),
+														new TurnRight(container, distanceSensor, bomb),
+														new ForwardTest(container, distanceSensor, bomb),
+														new Flipper(container, bomb, colorSensor), 
+														new ButtonPress(container, bomb, colorSensor)
+
+		});
 		arb.go();
 		
 		distanceSensor.close();

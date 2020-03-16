@@ -56,7 +56,7 @@ public class Bomb {
     
     public boolean isTaskActive() {
     	return taskActive;
-    }
+    } 
     
     public void startTask() {
     	taskActive = true;
