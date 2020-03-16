@@ -1,3 +1,4 @@
+package tasks;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
@@ -5,13 +6,13 @@ import lejos.robotics.subsumption.Behavior;
 import utils.Bomb;
 import utils.MotorContainer;
 
-public class ButtonPress implements Behavior{
+public class WireCut implements Behavior{
 
 	Bomb bomb;
 	EV3ColorSensor colorSensor;
 	MotorContainer container;
 	
-	public ButtonPress(MotorContainer container, Bomb bomb, EV3ColorSensor colorSensor) {
+	public WireCut(MotorContainer container, Bomb bomb, EV3ColorSensor colorSensor) {
 		this.container = container;
 		this.bomb = bomb;
 		this.colorSensor = colorSensor;
@@ -24,7 +25,7 @@ public class ButtonPress implements Behavior{
 		
 		provider.fetchSample(sample, 0);
 		
-		return bomb.getNextColor() == 'B' && sample[0] == Color.BLUE;
+		return bomb.getNextColor() == 'R' && sample[0] == Color.RED;
 		
 	}
 
