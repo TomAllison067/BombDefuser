@@ -54,7 +54,8 @@ public class Driver {
 		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, bomb),
 														new TurnRight(container, distanceSensor, bomb),
 														new ForwardTest(container, distanceSensor, bomb),
-														new Flipper(container, bomb, colorSensor)
+														new Flipper(container, bomb, colorSensor), 
+														new ButtonPress(container, bomb, colorSensor)
 														}
 										);
 		arb.go();

@@ -59,6 +59,7 @@ public class Flipper implements Behavior{
 		mFront.close();
 		
 		bomb.increment();
+		bomb.taskFinished();
 	}
 
 	@Override
