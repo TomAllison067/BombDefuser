@@ -27,9 +27,6 @@ public class Bomb {
 			defuseOrder[1] = 'G';
 			defuseOrder[2] = 'R';
 		}
-		else {
-			// bad bar code read
-		}
     }
     
     // public String bombDefused(Timer timer){
