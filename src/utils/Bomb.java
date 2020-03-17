@@ -10,19 +10,19 @@ public class Bomb {
 	private int index = 0;
 	private boolean taskActive = false;
 	
-	public Bomb(int bombType) {
+	public Bomb(String bombType) {
 
-		if(bombType == 1) {
+		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R';
 			defuseOrder[1] = 'G';
 			defuseOrder[2] = 'B';
 		}
-		else if(bombType == 2) {
+		else if(bombType.equals("QR: 2")) {
 			defuseOrder[0] = 'G';
 			defuseOrder[1] = 'R';
 			defuseOrder[2] = 'B';
 		}
-		else if(bombType == 3) {
+		else if(bombType.equals("QR: 3")) {
 			defuseOrder[0] = 'B';
 			defuseOrder[1] = 'G';
 			defuseOrder[2] = 'R';

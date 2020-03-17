@@ -23,7 +23,7 @@ public class ConnectionThread extends Thread {
 	private static int MAX_READ = 30;
 	private static BufferedInputStream in = null;
 	// private static OutputStream out = null; // Output - not currently used
-	private static String qrMessage;
+	private static String qrMessage = "";
 	private static int TIMEOUT_TIME = 10000; // How long we have to connect before it times out
 
 	/**
@@ -43,7 +43,7 @@ public class ConnectionThread extends Thread {
 				while (true) {
 					String qr = readQR(in, buffer);
 					// Should only update message if a QR code has actually been seen and understood.
-					if (!qr.equals("NONE")) qrMessage = qr;
+					if (qr != null) qrMessage = qr;
 				}
 			} else {
 				// Need to put some graceful failure here - although may be caught by exception handling??
@@ -91,7 +91,7 @@ public class ConnectionThread extends Thread {
 			for (int i = 0; i < read; i++) {
 				str.append((char) buffer[i]);
 			}
-			if (!str.toString().equals("NONE") && str.toString() != null) {
+			if (!str.toString().equals("") && str.toString() != null) {
 				message = str.toString();
 				return message;
 			}

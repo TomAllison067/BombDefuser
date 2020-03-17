@@ -62,13 +62,13 @@ public class Driver {
 		AndroidSensor phone = new AndroidSensor();
 		phone.startThread();
 		
-		int bombType;
+		String bombType;
 		String qrInfo;
 		
 		while(true) {
 			qrInfo = phone.getMessage();
-			if(qrInfo != null) {
-				bombType = Integer.parseInt(qrInfo);
+			if(!qrInfo.equals("")) {
+				bombType = qrInfo;
 				break;
 			}	
 		}
