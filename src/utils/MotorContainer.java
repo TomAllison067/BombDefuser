@@ -76,6 +76,13 @@ public class MotorContainer {
 		mLeft.endSynchronization();
 	}
 	
+	public void backward() {
+		mLeft.startSynchronization();
+		mLeft.backward();
+		mRight.backward();
+		mLeft.endSynchronization();
+	}
+	
 	/**
 	 * 
 	 * @return true if the motors are not moving and false if otherwise

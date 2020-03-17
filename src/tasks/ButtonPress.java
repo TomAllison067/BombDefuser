@@ -1,12 +1,20 @@
 package tasks;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 import utils.Bomb;
 import utils.MotorContainer;
 
 public class ButtonPress implements Behavior{
+	
+	EV3TouchSensor touchSensor = new EV3TouchSensor(SensorPort.S3);
+	SensorMode touch = touchSensor.getTouchMode();
+	float[] sample = new float[1];
 
 	Bomb bomb;
 	EV3ColorSensor colorSensor;
@@ -31,9 +39,27 @@ public class ButtonPress implements Behavior{
 
 	@Override
 	public void action() {
-		
 		bomb.startTask();
 		
+		container.turnRight(90);
+		
+		container.backward();
+		
+		while(true) {
+			touch.fetchSample(sample, 0);
+			if(sample[0]==1) {
+				container.stop();
+				break;
+				
+			}
+		}
+		touchSensor.close();
+		
+		container.forward();
+		Delay.msDelay(2000);
+		container.stop();
+		
+		container.turnRight(90);
 		
 		bomb.increment();
 	}

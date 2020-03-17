@@ -43,11 +43,6 @@ public class Flipper implements Behavior{
 		bomb.startTask();
 		
 		mFront.setSpeed (1300);
-		
-		LCD.drawString("Press ENTER to go", 1,2);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-
 
 		container.turnLeft(90);
 
@@ -59,10 +54,17 @@ public class Flipper implements Behavior{
 		mFront.waitComplete();
 		mFront.rotateTo(0);
 		
+		container.backward();
+		Delay.msDelay(2000);
+		container.stop();
+		
+		container.turnRight(90);
+		
 		mFront.close();
 		
 		bomb.increment();
 		bomb.taskFinished();
+		
 	}
 
 	@Override
@@ -72,3 +74,4 @@ public class Flipper implements Behavior{
 	}
 		
 }
+
