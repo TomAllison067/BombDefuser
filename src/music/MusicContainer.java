@@ -3,8 +3,6 @@ package music;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import synchronize.SynchronizedContainer;
-
 /**
  * Container class to stop and start music. Runs an internal MusicPlayer thread (which has the method to play the music).
  * To stop the music, the MusicPlayer thread is interrupted by an anonymous TimerTask after the given time.

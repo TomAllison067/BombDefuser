@@ -2,7 +2,6 @@ package music;
 import java.io.File;
 
 import lejos.hardware.Sound;
-import synchronize.SynchronizedContainer;
 
 public class MusicPlayer extends Thread {
 	private String fileName;
