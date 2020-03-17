@@ -47,18 +47,18 @@ public class Bomb {
     	return defuseOrder;
     }
     
-    public char getNextColor() {
+    public synchronized char getNextColor() {
     	return defuseOrder[index];
     }
-    public void increment() {
+    public synchronized void increment() {
     	index++;
     }
     
-    public boolean isTaskActive() {
+    public synchronized boolean isTaskActive() {
     	return taskActive;
     } 
     
-    public void startTask() {
+    public synchronized void startTask() {
     	taskActive = true;
     }
     
