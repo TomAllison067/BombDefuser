@@ -13,11 +13,9 @@ import synchronize.SynchronizedContainer;
  */
 public class MusicContainer {
 	private Music music;
-	private SynchronizedContainer sync;
 	private MusicPlayer player;
 	
 	public MusicContainer() {
-		sync = new SynchronizedContainer();
 	}
 	
 	/**
@@ -34,7 +32,7 @@ public class MusicContainer {
 	 * @param time the time to play the music for
 	 */
 	public void playMusic(long time) {
-		player = new MusicPlayer(music, sync, time);
+		player = new MusicPlayer(music, time);
 		player.setDaemon(true);
 		player.start();
 		
@@ -55,14 +53,6 @@ public class MusicContainer {
 		player.interrupt();
 	}
 	
-	/**
-	 * Get the value of the music AtomicBoolean in the SynchronizedContainer - whether the music is playing or not.
-	 * This AtomicBoolean is set accordingly in MusicPlayer.playTune();
-	 * @return bool whether the music is playing or not
-	 */
-	public boolean getPlaying() {
-		return sync.getMusicFlag();
-	}
 }
 
 	
