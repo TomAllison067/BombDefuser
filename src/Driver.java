@@ -70,8 +70,7 @@ public class Driver {
 			if(qrInfo != null) {
 				bombType = Integer.parseInt(qrInfo);
 				break;
-			}
-			
+			}	
 		}
 		Bomb bomb = new Bomb(bombType);
 		bomb.startBomb();

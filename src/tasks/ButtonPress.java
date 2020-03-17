@@ -1,4 +1,5 @@
 package tasks;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
@@ -39,6 +40,10 @@ public class ButtonPress implements Behavior{
 
 	@Override
 	public void action() {
+		
+		LCD.drawString("Flipper Active", 2, 2);
+		LCD.clear();
+		
 		bomb.startTask();
 		
 		container.turnRight(90);
@@ -62,6 +67,7 @@ public class ButtonPress implements Behavior{
 		container.turnRight(90);
 		
 		bomb.increment();
+		bomb.taskFinished();
 	}
 
 	@Override

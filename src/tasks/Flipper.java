@@ -1,5 +1,4 @@
 package tasks;
-import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -39,6 +38,9 @@ public class Flipper implements Behavior{
 
 	@Override
 	public void action() {
+		
+		LCD.drawString("Flipper Active", 2, 2);
+		LCD.clear();
 		
 		bomb.startTask();
 		

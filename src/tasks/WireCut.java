@@ -1,4 +1,5 @@
 package tasks;
+import lejos.hardware.lcd.LCD;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
@@ -32,10 +33,15 @@ public class WireCut implements Behavior{
 	@Override
 	public void action() {
 		
+		LCD.drawString("Flipper Active", 2, 2);
+		LCD.clear();
+		
 		bomb.startTask();
 		
 		
+		
 		bomb.increment();
+		bomb.taskFinished();
 	}
 
 	@Override
