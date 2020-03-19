@@ -6,7 +6,7 @@ import countdown.Countdown;
 
 
 public class Bomb {
-	private char[] defuseOrder = new char[3];
+	private char[] defuseOrder = new char[4];
 	private int index = 0;
 	private boolean taskActive = false;
 	
