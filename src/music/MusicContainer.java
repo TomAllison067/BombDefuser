@@ -26,11 +26,10 @@ public class MusicContainer {
 	
 	/**
 	 * Starts a new MusicPlayer thread and runs that thread for the given time - stops the music by interrupting the thread.
-	 * The flag to let other people know if it music or playing or not is set within the MusicPlayer
 	 * @param time the time to play the music for
 	 */
 	public void playMusic(long time) {
-		player = new MusicPlayer(music, time);
+		player = new MusicPlayer(music);
 		player.setDaemon(true);
 		player.start();
 		

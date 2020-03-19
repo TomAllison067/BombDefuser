@@ -6,23 +6,24 @@ import lejos.hardware.Sound;
 public class MusicPlayer extends Thread {
 	private String fileName;
 	
-	public MusicPlayer(Music music, long time) {
+	public MusicPlayer(Music music) {
 		this.fileName = music.getFileName();
 	}
 	
 	@Override
 	public void run() {
-		while (true) {
-			playTune(fileName);
+		try {
+			while(true) {
+				playTune(fileName);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 		
-	public void playTune(String fileName) {
+	public void playTune(String fileName) throws InterruptedException {
 		int time = Sound.playSample(new File(fileName));
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-		}
+		Thread.sleep(time);
 	}
 }
 
