@@ -14,6 +14,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import qr.AndroidSensor;
 import tasks.ButtonPress;
+import tasks.DefusalComplete;
 import tasks.Flipper;
 import tasks.WireCut;
 import utils.Bomb;
@@ -80,7 +81,8 @@ public class Driver {
 														new ForwardTest(container, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(container, bomb, colorSensor), 
 														new ButtonPress(container, bomb, colorSensor),
-														new WireCut(container, bomb, colorSensor)
+														new WireCut(container, bomb, colorSensor),
+														new DefusalComplete(container, bomb)
 
 		});
 		arb.go();

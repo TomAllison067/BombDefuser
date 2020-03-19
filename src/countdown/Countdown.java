@@ -8,9 +8,13 @@ import music.MusicContainer;
 
 public class Countdown extends TimerTask{
     private int count = 0;
-    private MusicContainer musicContainer = new MusicContainer();
+    private MusicContainer musicContainer;
     private boolean musicPlaying = false;
         
+    public Countdown(MusicContainer container) {
+    	this.musicContainer = container;
+    }
+    
     public void run(){
     	
         count ++;
