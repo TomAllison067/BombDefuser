@@ -12,7 +12,7 @@ public class Countdown extends TimerTask{
         
     public void run(){
     	
-        count ++;
+        count++;
         LCD.clear();
         if(count <= 230){
             LCD.drawString(("You have " + (240 - count) + " seconds remaining"), 2, 2);
@@ -33,6 +33,7 @@ public class Countdown extends TimerTask{
             music.setMusic(Music.BOOM);
             music.playMusic(2000);
             music.stopMusic();
+            System.exit(0);
         }
     }
 }

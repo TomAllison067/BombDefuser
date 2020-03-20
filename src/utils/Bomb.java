@@ -10,6 +10,9 @@ public class Bomb {
 	private int index = 0;
 	private boolean taskActive = false;
 	
+	Timer timer = new Timer();
+    TimerTask countdown = new Countdown();
+	
 	public Bomb(String bombType) {
 
 		if(bombType.equals("QR: 1")) {
@@ -29,14 +32,12 @@ public class Bomb {
 		}
     }
     
-    // public String bombDefused(Timer timer){
-    //     timer.cancel();
-    //     System.out.println("Bomb Defused!!!");
-    // }
+     public void bombDefused(){
+         timer.cancel();
+         System.out.println("Bomb Defused!!!");
+     }
 
     public void startBomb(){
-        Timer timer = new Timer();
-        TimerTask countdown = new Countdown();
         timer.schedule(countdown, 1000, 1000);
     }
 
