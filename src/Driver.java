@@ -1,3 +1,4 @@
+import battery.BatteryBehavior;
 import drivearound.ForwardTest;
 import drivearound.TurnLeft;
 import drivearound.TurnRight;
@@ -12,6 +13,7 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
+import music.MusicContainer;
 import qr.AndroidSensor;
 import tasks.ButtonPress;
 import tasks.DefusalComplete;
@@ -73,10 +75,13 @@ public class Driver {
 				break;
 			}	
 		}
-		Bomb bomb = new Bomb(bombType);
+		MusicContainer musicContainer = new MusicContainer();
+		Bomb bomb = new Bomb(bombType, musicContainer);
 		bomb.startBomb();
 		
-		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, maxDistance, bomb),
+		// Behaviours are in order of increasing priority
+		Arbitrator arb = new Arbitrator(new Behavior[] {new BatteryBehavior(container, musicContainer),
+														new TurnLeft(container, distanceSensor, maxDistance, bomb),
 														new TurnRight(container, distanceSensor, minDistance, bomb),
 														new ForwardTest(container, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(container, bomb, colorSensor), 

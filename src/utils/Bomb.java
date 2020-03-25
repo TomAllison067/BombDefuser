@@ -11,27 +11,28 @@ public class Bomb {
 	private int index = 0;
 	private boolean taskActive = false;
 	private Timer timer = new Timer();
-	private MusicContainer musicContainer = new MusicContainer();
+	private MusicContainer musicContainer;
 	
-	public Bomb(String bombType) {
-
+	public Bomb(String bombType, MusicContainer musicContainer) {
+		this.musicContainer = musicContainer;
+		
 		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R';
 			defuseOrder[1] = 'G';
 			defuseOrder[2] = 'B';
-			defuseOrder[4] = 'F';
+			defuseOrder[3] = 'F';
 		}
 		else if(bombType.equals("QR: 2")) {
 			defuseOrder[0] = 'G';
 			defuseOrder[1] = 'R';
 			defuseOrder[2] = 'B';
-			defuseOrder[4] = 'F';
+			defuseOrder[3] = 'F';
 		}
 		else if(bombType.equals("QR: 3")) {
 			defuseOrder[0] = 'B';
 			defuseOrder[1] = 'G';
 			defuseOrder[2] = 'R';
-			defuseOrder[4] = 'F';
+			defuseOrder[3] = 'F';
 		}
     }
     
