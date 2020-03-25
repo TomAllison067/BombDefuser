@@ -1,12 +1,14 @@
 package qr;
 /**
- * Represents the phone sensor. Simply creates a new thread that connects the phone via bluetooth and then continously monitors the camera for a new QR code reading.
- * @author Tom
+ * Class to represent the Android phone sensor.
+ * It contains a ConnectionThread, which when started will attempt to connect via Bluetooth to the Android phone and monitor for any new QR code readings.
+ * @author Tom Allison
  *
  */
 
 public class AndroidSensor {
 	private static ConnectionThread connectionThread;
+	
 	public AndroidSensor() {
 		connectionThread = new ConnectionThread();
 	}
@@ -18,8 +20,11 @@ public class AndroidSensor {
 		connectionThread.start();
 	}
 	
-	/*
-	 * Gets the QR reading from the connection thread - call this method whenever you want to check the latest QR code read.
+
+	/**
+	 * Gets the latest QR code read by the connectionThread by calling connectionThread.getQR().
+	 * Use this when in other code where you've got an AndroidSensor and want to get the QR Code.
+	 * @return the latest QR code string
 	 */
 	public String getMessage() {
 		String message = connectionThread.getQR();

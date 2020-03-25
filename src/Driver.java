@@ -28,17 +28,21 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		
-		// Initialise motors and sensors
+		/*
+		 * Initialise motors and sensors
+		 */
 		LCD.drawString("Initialising...", 2, 2);
 		MotorContainer motorContainer = initMotorContainer();
 		EV3UltrasonicSensor distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
 		EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S2);
-	
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
 		
-		// Calibrate the distance sensor
+		
+		/*
+		 * Calibrate distance sensor
+		 */
 		LCD.drawString("Calibration..", 2, 2);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
@@ -49,28 +53,36 @@ public class Driver {
 		LCD.drawString("Calibration complete", 2, 2);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
+		LCD.clear();
 		
-	
-		// Connect to the phone and scan in a QR code
 		
+		/*
+		 * Connect to the phone and scan in the QR code in order to get the bombType to defuse (and thus defusal order)
+		 */
 		AndroidSensor phone = new AndroidSensor();
 		phone.startThread();
-		
 		String bombType;
 		String qrInfo;
-		
-		while(true) {
+		while(true) { // Can we make this bit all one method to make it neater or is it more effort than it's worth?
 			qrInfo = phone.getMessage();
 			if(!qrInfo.equals("")) {
 				bombType = qrInfo;
 				break;
 			}	
 		}
+		
+		
+		/*
+		 * Initialise the abstraction of the bomb given the bombType, and initialise the music container
+		 */
 		MusicContainer musicContainer = new MusicContainer();
 		Bomb bomb = new Bomb(bombType, musicContainer);
 		bomb.startBomb();
 		
-		// Behaviours are in order of increasing priority
+		
+		/*
+		 * Now we're ready to go!
+		 */
 		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
 														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
 														new ForwardTest(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
@@ -83,8 +95,6 @@ public class Driver {
 
 		});
 		arb.go();
-		
-		distanceSensor.close();
 	}
 	
 	/**
@@ -102,7 +112,7 @@ public class Driver {
 	 * @param distanceSensor the sensor to calibrate.
 	 * @return an array of two distances - [0] the minimum distance the robot should be from the box, and [1] the maximum.
 	 */
-	public static float[] calibrateDistance(EV3UltrasonicSensor distanceSensor) {
+	private static float[] calibrateDistance(EV3UltrasonicSensor distanceSensor) {
 		LCD.clear();
 		LCD.drawString("Place the robot...", 2, 2);
 		float[] sample = new float[1];
@@ -112,7 +122,6 @@ public class Driver {
 		} while (Button.ENTER.isUp());
 		float[] distances = {sample[0] - (DISTANCE_DIFFERENCE / 2), sample[0] + (DISTANCE_DIFFERENCE / 2)};
 		return distances;
-		
 	}
 
 }

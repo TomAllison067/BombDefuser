@@ -73,6 +73,7 @@ public class Bomb {
     /**
      * Stops the countdown from running, eg if the bomb is defused.
      * Called by the DefusalComplete behavior.
+     * @author Tom Allison
      */
     public void stopCountdown() {
     	timer.cancel();

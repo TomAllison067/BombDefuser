@@ -10,7 +10,7 @@ import utils.MotorContainer;
 
 /**
  * This behavior takes place when all three interactions with a bomb have been successfully completed
- * @author Tom
+ * @author Tom Allison
  *
  */
 public class DefusalComplete implements Behavior {
@@ -32,7 +32,9 @@ public class DefusalComplete implements Behavior {
 		return bomb.getNextColor() == 'F';
 	}
 
-	@Override
+	/**
+	 * Notifies user of success, stops the Bomb class's internal countdown, moves away from the bomb and exits the program.
+	 */
 	public void action() {
 		// Notify user
 		LCD.clear();
@@ -58,10 +60,8 @@ public class DefusalComplete implements Behavior {
 		System.exit(0);
 	}
 
-	@Override
+	// Not required - we've completed our task!
 	public void suppress() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
