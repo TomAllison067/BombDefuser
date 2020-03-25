@@ -34,7 +34,7 @@ public class Driver {
 		
 		mLeft.synchronizeWith(new BaseRegulatedMotor[] {mRight});
 	
-		MotorContainer container = new MotorContainer(mLeft, mRight);
+		MotorContainer motorContainer = new MotorContainer(mLeft, mRight);
 		EV3UltrasonicSensor distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
 		EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S2);
 			
@@ -81,15 +81,15 @@ public class Driver {
 		bomb.startBomb();
 		
 		// Behaviours are in order of increasing priority
-		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, maxDistance, bomb),
-														new TurnRight(container, distanceSensor, minDistance, bomb),
-														new ForwardTest(container, distanceSensor, minDistance, maxDistance, bomb),
-														new Flipper(container, bomb, colorSensor), 
-														new ButtonPress(container, bomb, colorSensor),
-														new WireCut(container, bomb, colorSensor),
-														new DefusalComplete(container, bomb),
-														new BatteryBehavior(container, musicContainer),
-														new EscapeButtonBehavior(container, musicContainer),
+		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
+														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
+														new ForwardTest(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
+														new Flipper(motorContainer, bomb, colorSensor), 
+														new ButtonPress(motorContainer, bomb, colorSensor),
+														new WireCut(motorContainer, bomb, colorSensor),
+														new DefusalComplete(motorContainer, bomb),
+														new BatteryBehavior(motorContainer, musicContainer),
+														new EscapeButtonBehavior(motorContainer, musicContainer),
 
 		});
 		arb.go();
