@@ -23,15 +23,18 @@ public class BatteryBehavior implements Behavior {
 		this.musicContainer = musicContainer;
 	}
 	
+	@Override
 	public boolean takeControl() {
 		float currentVoltage = Battery.getVoltage();
 		return currentVoltage <= SHUTDOWN_VOLTAGE;
 	}
 	
 	// Not needed - the robot simply shuts down
+	@Override
 	public void suppress() {
 	}
 	
+	@Override
 	public void action() {
 		// Silence any music and stop any motors
 		musicContainer.stopMusic();
