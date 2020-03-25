@@ -1,5 +1,5 @@
 import battery.BatteryBehavior;
-import drivearound.ForwardTest;
+import drivearound.MoveForward;
 import drivearound.TurnLeft;
 import drivearound.TurnRight;
 import lejos.hardware.Button;
@@ -85,7 +85,7 @@ public class Driver {
 		 */
 		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
 														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
-														new ForwardTest(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
+														new MoveForward(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(motorContainer, bomb, colorSensor), 
 														new ButtonPress(motorContainer, bomb, colorSensor),
 														new WireCut(motorContainer, bomb, colorSensor),

@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Behavior;
 import utils.Bomb;
 import utils.MotorContainer;
 
-public class ForwardTest implements Behavior {
+public class MoveForward implements Behavior {
 
 	private MotorContainer container;
 	private EV3UltrasonicSensor sensor;
@@ -15,7 +15,7 @@ public class ForwardTest implements Behavior {
 	private float minDistance;
 	private float maxDistance;
 	
-	public ForwardTest(MotorContainer container, EV3UltrasonicSensor sensor, float minDistance, float maxDistance, Bomb bomb) {
+	public MoveForward(MotorContainer container, EV3UltrasonicSensor sensor, float minDistance, float maxDistance, Bomb bomb) {
 		super();
 		this.container = container;
 		this.sensor = sensor;

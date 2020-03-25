@@ -28,30 +28,33 @@ public class MotorContainer {
 		return mRight;
 	}
 	
+
+	/**
+	 * Correcting the motors when moving around the box
+	 * To be used in TurnLeft Behavior
+	 */
 	public void correctLeft() {
-//		this.mLeft.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mLeft.setSpeed(70);
 		this.mRight.setSpeed(200);
 		mLeft.startSynchronization();
 
-		//minor Wheel
 		mLeft.forward();
 
-		//major Wheel
 		mRight.forward();
 		mLeft.endSynchronization();
 	}
 	
+	/**
+	 * Correcting the motors when moving around the box
+	 * To be used in TurnRight Behavior
+	 */
 	public void correctRight() {
 		this.mLeft.setSpeed(200);
-//		this.mRight.setSpeed((distance < Float.MAX_VALUE ? distance / 3 : 0.05f) * 200);
 		this.mRight.setSpeed(70);
 		mLeft.startSynchronization();
 		
-		//major Wheel
 		mLeft.forward();
 
-		// minor Wheel
 		mRight.forward();
 		mLeft.endSynchronization();
 	}
@@ -75,7 +78,10 @@ public class MotorContainer {
 		mRight.forward();
 		mLeft.endSynchronization();
 	}
-	
+
+	/**
+	 * Move the motors backwards simultaneously at the current speed
+	 */
 	public void backward() {
 		mLeft.startSynchronization();
 		mLeft.backward();
