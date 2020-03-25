@@ -35,11 +35,12 @@ public class Bomb {
 			defuseOrder[3] = 'F';
 		}
     }
-    
-     public void bombDefused(){
-         timer.cancel();
-         System.out.println("Bomb Defused!!!");
-     }
+
+	/** NOT NEEDED - we have a behavior for this now **/
+//     public void bombDefused(){
+//         timer.cancel();
+//         System.out.println("Bomb Defused!!!");
+//     }
 
     public void startBomb(){
         TimerTask countdown = new Countdown(musicContainer);
@@ -70,11 +71,10 @@ public class Bomb {
     }
     
     /**
-     * Stops the countdown and music from running, eg if the bomb is defused.
+     * Stops the countdown from running, eg if the bomb is defused.
      * Called by the DefusalComplete behavior.
      */
     public void stopCountdown() {
-    	musicContainer.stopMusic();
     	timer.cancel();
     }
 }

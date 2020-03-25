@@ -4,6 +4,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 import utils.Bomb;
 import utils.MotorContainer;
 
@@ -32,13 +33,13 @@ public class WireCut implements Behavior{
 
 	@Override
 	public void action() {
-		
-		LCD.drawString("Flipper Active", 2, 2);
 		LCD.clear();
+		LCD.drawString("WireCut Active", 2, 2);
 		
 		bomb.startTask();
 		
-		
+		LCD.drawString("Not implemented", 2, 3);
+		Delay.msDelay(2000);
 		
 		bomb.increment();
 		bomb.taskFinished();

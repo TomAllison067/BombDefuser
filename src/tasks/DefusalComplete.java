@@ -4,41 +4,58 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
+import music.MusicContainer;
 import utils.Bomb;
 import utils.MotorContainer;
 
 /**
- * This behavior takes place when all three interactions with a bomb have been successfully completed (ie, if the Bomb's array is incremented three times)
+ * This behavior takes place when all three interactions with a bomb have been successfully completed
  * @author Tom
  *
  */
 public class DefusalComplete implements Behavior {
-	Bomb bomb;
-	MotorContainer container;
+	private Bomb bomb;
+	private MotorContainer motorContainer;
+	private MusicContainer musicContainer;
 
-	public DefusalComplete(MotorContainer container, Bomb bomb) {
+	public DefusalComplete(MotorContainer motorContainer, MusicContainer musicContainer, Bomb bomb) {
 		this.bomb = bomb;
-		this.container = container;
+		this.motorContainer = motorContainer;
+		this.musicContainer = musicContainer;
 	}
-	@Override
+	
+	/**
+	 * Takes control if the bomb has been successfully defused,
+	 * that is, if the Bomb's defuseOrder[] index is 3, where defuseOrder[3] == 'F' for finished.
+	 */
 	public boolean takeControl() {
 		return bomb.getNextColor() == 'F';
 	}
 
 	@Override
 	public void action() {
-		bomb.stopCountdown();
-		container.stop();
-		container.turnLeft(180);
-		container.forward();
-		Delay.msDelay(2000);
-		container.stop();
+		// Notify user
 		LCD.clear();
-		LCD.drawString("Bomb Defused", 1, 1);
+		LCD.drawString("Bomb Defused", 0, 0);
+		
+		// Stop the bomb countdown
+		bomb.stopCountdown();
+		
+		// Stop the music and any motors
+		musicContainer.stopMusic();
+		motorContainer.stop();
+		
+		// Attempt to move away from bomb, back to the user
+		motorContainer.turnLeft(180);
+		motorContainer.forward();
+		Delay.msDelay(2000);
+		motorContainer.stop();
+		
+		LCD.drawString("Press enter to quit", 0, 2);
 		Button.ENTER.waitForPressAndRelease();
+		
+		musicContainer.exitSound();
 		System.exit(0);
-		
-		
 	}
 
 	@Override
