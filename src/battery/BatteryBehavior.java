@@ -40,7 +40,7 @@ public class BatteryBehavior implements Behavior {
 		musicContainer.stopMusic();
 		container.stop();
 		
-		// Emit warning beeps
+		// Emit warning beeps every 2 seconds
 		Thread thread = new Thread(new Beeper());
 		thread.setDaemon(true);
 		thread.start();
@@ -51,6 +51,7 @@ public class BatteryBehavior implements Behavior {
 		LCD.drawString("Please charge", 0, 1);
 		LCD.drawString("and restart", 0, 2);
 		
+		LCD.drawString("Press ENTER to quit", 0, 4);
 		Button.ENTER.waitForPressAndRelease();
 		thread.interrupt();
 		
@@ -58,12 +59,18 @@ public class BatteryBehavior implements Behavior {
 	}
 }
 
+/**
+ * Simple thread to emit warning beeps every 2 seconds
+ * @author Tom
+ *
+ */
 class Beeper implements Runnable {
+	final long SECOND = 1000;
 	public void run() {
 		while(true) {
 			try {
 				Sound.beep();
-				Thread.sleep(2000);
+				Thread.sleep(2 * SECOND);
 			} catch (InterruptedException e) {
 				break;
 			}

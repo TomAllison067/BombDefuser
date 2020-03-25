@@ -80,14 +80,15 @@ public class Driver {
 		bomb.startBomb();
 		
 		// Behaviours are in order of increasing priority
-		Arbitrator arb = new Arbitrator(new Behavior[] {new BatteryBehavior(container, musicContainer),
-														new TurnLeft(container, distanceSensor, maxDistance, bomb),
+		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(container, distanceSensor, maxDistance, bomb),
 														new TurnRight(container, distanceSensor, minDistance, bomb),
 														new ForwardTest(container, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(container, bomb, colorSensor), 
 														new ButtonPress(container, bomb, colorSensor),
 														new WireCut(container, bomb, colorSensor),
-														new DefusalComplete(container, bomb)
+														new DefusalComplete(container, bomb),
+														new BatteryBehavior(container, musicContainer),
+														new EscapeButtonQuit(container, musicContainer),
 
 		});
 		arb.go();
