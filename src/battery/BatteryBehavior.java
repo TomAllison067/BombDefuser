@@ -35,11 +35,9 @@ public class BatteryBehavior implements Behavior {
 	}
 	
 	// Not needed - the robot simply shuts down
-	@Override
 	public void suppress() {
 	}
 	
-	@Override
 	public void action() {
 		// Silence any music and stop any motors
 		musicContainer.stopMusic();
@@ -73,7 +71,6 @@ public class BatteryBehavior implements Behavior {
 /**
  * Simple thread to emit warning beeps every 2 seconds
  * @author Tom
- *
  */
 class Beeper implements Runnable {
 	final long SECOND = 1000;
