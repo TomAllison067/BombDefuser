@@ -120,7 +120,8 @@ public class Driver {
 			SampleProvider provider = distanceSensor.getDistanceMode();
 			provider.fetchSample(sample, 0);
 		} while (Button.ENTER.isUp());
-		float[] distances = {sample[0] - (DISTANCE_DIFFERENCE / 2), sample[0] + (DISTANCE_DIFFERENCE / 2)};
+		float[] distances = {sample[0] - (DISTANCE_DIFFERENCE / 2),
+							sample[0] + (DISTANCE_DIFFERENCE / 2)};
 		return distances;
 	}
 
