@@ -4,6 +4,8 @@ import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 import music.MusicContainer;
 import utils.MotorContainer;
@@ -11,16 +13,20 @@ import utils.MotorContainer;
 /**
  * Behaviour to gracefully shut down the robot if the battery voltage drops below a certain level
  * @author Tom
- * TODO: Close all sensors .etc
+ * 
  */
 public class BatteryBehavior implements Behavior {
 	final float SHUTDOWN_VOLTAGE = 6.1f;
 	private MotorContainer container;
 	private MusicContainer musicContainer;
+	private EV3UltrasonicSensor us;
+	private EV3ColorSensor cs;
 	
-	public BatteryBehavior(MotorContainer container, MusicContainer musicContainer) {
+	public BatteryBehavior(MotorContainer container, MusicContainer musicContainer, EV3UltrasonicSensor us, EV3ColorSensor cs) {
 		this.container = container;
 		this.musicContainer = musicContainer;
+		this.us = us;
+		this.cs = cs;
 	}
 	
 	@Override
@@ -55,6 +61,12 @@ public class BatteryBehavior implements Behavior {
 		Button.ENTER.waitForPressAndRelease();
 		thread.interrupt();
 		
+		// Close sensors
+		us.close();
+		cs.close();
+		
+		// Play exit tones and exit
+		musicContainer.exitSound();
 		System.exit(0);
 	}
 }

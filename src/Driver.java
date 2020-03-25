@@ -89,9 +89,9 @@ public class Driver {
 														new Flipper(motorContainer, bomb, colorSensor), 
 														new ButtonPress(motorContainer, bomb, colorSensor),
 														new WireCut(motorContainer, bomb, colorSensor),
-														new DefusalComplete(motorContainer, musicContainer, bomb),
-														new BatteryBehavior(motorContainer, musicContainer),
-														new EscapeButtonBehavior(motorContainer, musicContainer),
+														new DefusalComplete(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
+														new BatteryBehavior(motorContainer, musicContainer, distanceSensor, colorSensor),
+														new EscapeButtonBehavior(motorContainer, musicContainer, distanceSensor, colorSensor),
 
 		});
 		arb.go();

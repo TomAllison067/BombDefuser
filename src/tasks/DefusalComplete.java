@@ -2,6 +2,8 @@ package tasks;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 import music.MusicContainer;
@@ -17,11 +19,15 @@ public class DefusalComplete implements Behavior {
 	private Bomb bomb;
 	private MotorContainer motorContainer;
 	private MusicContainer musicContainer;
+	private EV3UltrasonicSensor us;
+	private EV3ColorSensor cs;
 
-	public DefusalComplete(MotorContainer motorContainer, MusicContainer musicContainer, Bomb bomb) {
+	public DefusalComplete(MotorContainer motorContainer, MusicContainer musicContainer, Bomb bomb, EV3UltrasonicSensor us, EV3ColorSensor cs) {
 		this.bomb = bomb;
 		this.motorContainer = motorContainer;
 		this.musicContainer = musicContainer;
+		this.us = us;
+		this.cs = cs;
 	}
 	
 	/**
@@ -56,6 +62,11 @@ public class DefusalComplete implements Behavior {
 		LCD.drawString("Press enter to quit", 0, 2);
 		Button.ENTER.waitForPressAndRelease();
 		
+		// Close sensors
+		us.close();
+		cs.close();
+		
+		// Play exit tones and exit
 		musicContainer.exitSound();
 		System.exit(0);
 	}

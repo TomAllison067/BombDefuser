@@ -2,6 +2,8 @@ package utils;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 import music.MusicContainer;
 
@@ -14,10 +16,14 @@ import music.MusicContainer;
 public class EscapeButtonBehavior implements Behavior {
 	private MotorContainer motorContainer;
 	private MusicContainer musicContainer;
+	private EV3UltrasonicSensor us;
+	private EV3ColorSensor cs;
 	
-	public EscapeButtonBehavior(MotorContainer motorContainer, MusicContainer musicContainer) {
+	public EscapeButtonBehavior(MotorContainer motorContainer, MusicContainer musicContainer, EV3UltrasonicSensor us, EV3ColorSensor cs) {
 		this.motorContainer = motorContainer;
 		this.musicContainer = musicContainer;
+		this.us = us;
+		this.cs = cs;
 	}
 	
 	// Take control if ESCAPE is pressed
@@ -34,9 +40,12 @@ public class EscapeButtonBehavior implements Behavior {
 		motorContainer.stop();
 		musicContainer.stopMusic();
 		
-		// Play exit tones
-		musicContainer.exitSound();
+		// Close sensors
+		us.close();
+		cs.close();
 		
+		// Play exit tones and exit
+		musicContainer.exitSound();
 		System.exit(0);
 	}
 	
