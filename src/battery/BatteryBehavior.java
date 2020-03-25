@@ -13,7 +13,6 @@ import utils.MotorContainer;
 /**
  * Behaviour to gracefully shut down the robot if the battery voltage drops below a certain level
  * @author Tom
- * 
  */
 public class BatteryBehavior implements Behavior {
 	final float SHUTDOWN_VOLTAGE = 6.1f;
