@@ -15,12 +15,14 @@ import music.MusicContainer;
 public class EscapeButtonBehavior implements Behavior {
 	private MotorContainer motorContainer;
 	private MusicContainer musicContainer;
+	private Bomb bomb;
 	private EV3UltrasonicSensor us;
 	private EV3ColorSensor cs;
 	
-	public EscapeButtonBehavior(MotorContainer motorContainer, MusicContainer musicContainer, EV3UltrasonicSensor us, EV3ColorSensor cs) {
+	public EscapeButtonBehavior(MotorContainer motorContainer, MusicContainer musicContainer, Bomb bomb, EV3UltrasonicSensor us, EV3ColorSensor cs) {
 		this.motorContainer = motorContainer;
 		this.musicContainer = musicContainer;
+		this.bomb = bomb;
 		this.us = us;
 		this.cs = cs;
 	}
@@ -35,7 +37,8 @@ public class EscapeButtonBehavior implements Behavior {
 		LCD.clear();
 		LCD.drawString("Quitting...", 0, 0);
 		
-		// Stop all motors and music
+		// Stop the bomb, all and music
+		bomb.stopCountdown();
 		motorContainer.stop();
 		musicContainer.stopMusic();
 		

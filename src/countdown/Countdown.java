@@ -44,7 +44,6 @@ public class Countdown extends TimerTask{
         	musicContainer.setMusic(Music.BOOM);
         	//musicContainer.playMusic(2000);
             LCD.drawString("Boom!", 2, 2);   
-            musicContainer.setMusic(Music.BOOM);
             musicContainer.playMusic(2000);
             musicContainer.stopMusic();
             System.exit(0);

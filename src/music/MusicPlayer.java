@@ -17,7 +17,6 @@ public class MusicPlayer extends Thread {
 				playTune(fileName);
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 		

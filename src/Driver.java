@@ -90,8 +90,8 @@ public class Driver {
 														new ButtonPress(motorContainer, bomb, colorSensor),
 														new WireCut(motorContainer, bomb, colorSensor),
 														new DefusalComplete(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
-														new BatteryBehavior(motorContainer, musicContainer, distanceSensor, colorSensor),
-														new EscapeButtonBehavior(motorContainer, musicContainer, distanceSensor, colorSensor),
+														new BatteryBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
+														new EscapeButtonBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
 
 		});
 		arb.go();
