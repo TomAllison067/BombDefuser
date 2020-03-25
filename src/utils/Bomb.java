@@ -13,9 +13,9 @@ public class Bomb {
 	private Timer timer = new Timer();
 	private MusicContainer musicContainer;
 	
+
 	public Bomb(String bombType, MusicContainer musicContainer) {
 		this.musicContainer = musicContainer;
-		
 		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R';
 			defuseOrder[1] = 'G';
@@ -36,14 +36,14 @@ public class Bomb {
 		}
     }
     
-    // public String bombDefused(Timer timer){
-    //     timer.cancel();
-    //     System.out.println("Bomb Defused!!!");
-    // }
+     public void bombDefused(){
+         timer.cancel();
+         System.out.println("Bomb Defused!!!");
+     }
 
     public void startBomb(){
         TimerTask countdown = new Countdown(musicContainer);
-        timer.schedule(countdown, 1000, 1000);
+    	timer.schedule(countdown, 1000, 1000);
     }
 
     public char[] getDefuseOrder() {
