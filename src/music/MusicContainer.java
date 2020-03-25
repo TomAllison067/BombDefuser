@@ -3,6 +3,9 @@ package music;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import lejos.hardware.Sound;
+import lejos.utility.Delay;
+
 /**
  * Container class to stop and start music. Runs an internal MusicPlayer thread (which has the method to play the music).
  * To stop the music, the MusicPlayer thread is interrupted by an anonymous TimerTask after the given time.
@@ -10,6 +13,12 @@ import java.util.TimerTask;
  *
  */
 public class MusicContainer {
+	// Frequencies for tones played in exitSound(), called by other behaviors when robot program ends
+	final int F5 = 698;
+	final int D5 = 587;
+	final int A4 = 440;
+	final int NOTE_LENGTH = 250;
+	
 	private Music music;
 	private MusicPlayer player;
 	
@@ -48,6 +57,15 @@ public class MusicContainer {
 	 */
 	public void stopMusic() {
 		player.interrupt();
+	}
+	
+	// Plays some pleasant exit tones - called in EscapeButtonBehavior and BatteryBehavior
+	public void exitSound() {
+		Sound.playTone(F5, NOTE_LENGTH);
+		Delay.msDelay(NOTE_LENGTH);
+		Sound.playTone(D5, NOTE_LENGTH);
+		Delay.msDelay(NOTE_LENGTH);
+		Sound.playTone(A4, NOTE_LENGTH);
 	}
 	
 }

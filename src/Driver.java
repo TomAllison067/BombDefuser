@@ -20,6 +20,7 @@ import tasks.DefusalComplete;
 import tasks.Flipper;
 import tasks.WireCut;
 import utils.Bomb;
+import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
@@ -88,7 +89,7 @@ public class Driver {
 														new WireCut(container, bomb, colorSensor),
 														new DefusalComplete(container, bomb),
 														new BatteryBehavior(container, musicContainer),
-														new EscapeButtonQuit(container, musicContainer),
+														new EscapeButtonBehavior(container, musicContainer),
 
 		});
 		arb.go();
