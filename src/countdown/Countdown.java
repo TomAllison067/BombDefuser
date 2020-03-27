@@ -36,13 +36,13 @@ public class Countdown extends TimerTask{
             if (!musicPlaying && count < 240) {
             	musicPlaying = true;
             	musicContainer.setMusic(Music.TENSE_MUSIC);
-            	//musicContainer.playMusic(10000);
+            	musicContainer.playMusic(10000);
             }
         }
         else{
         	musicContainer.stopMusic();
         	musicContainer.setMusic(Music.BOOM);
-        	//musicContainer.playMusic(2000);
+        	musicContainer.playMusic(2000);
             LCD.drawString("Boom!", 2, 2);   
             musicContainer.playMusic(2000);
             musicContainer.stopMusic();
