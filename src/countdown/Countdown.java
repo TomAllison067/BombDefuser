@@ -1,5 +1,6 @@
 package countdown;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import lejos.hardware.lcd.LCD;
 import music.Music;
@@ -10,9 +11,11 @@ public class Countdown extends TimerTask{
     private int count = 0;
     private MusicContainer musicContainer;
     private boolean musicPlaying = false;
+    private AtomicBoolean retreat;
         
-    public Countdown(MusicContainer container) {
+    public Countdown(MusicContainer container, AtomicBoolean retreat) {
     	this.musicContainer = container;
+    	this.retreat = retreat;
     }
     
     public void run(){
@@ -33,6 +36,9 @@ public class Countdown extends TimerTask{
         }
         else if(count < 240 && count > 230){
             LCD.drawString("Run away!!!", 2, 2);
+            if(!getRetreat()) {
+            	setRetreat(true);
+            }
             if (!musicPlaying && count < 240) {
             	musicPlaying = true;
             	musicContainer.setMusic(Music.TENSE_MUSIC);
@@ -48,5 +54,13 @@ public class Countdown extends TimerTask{
             musicContainer.stopMusic();
             System.exit(0);
         }
+    }
+    
+    public synchronized void setRetreat(boolean bool) {
+    	retreat.set(bool);
+    }
+    
+    public synchronized boolean getRetreat() {
+    	return retreat.get();
     }
 }

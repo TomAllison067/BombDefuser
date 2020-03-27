@@ -1,6 +1,7 @@
 package utils;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import countdown.Countdown;
 import music.MusicContainer;
@@ -10,6 +11,7 @@ public class Bomb {
 	private char[] defuseOrder = new char[4];
 	private int index = 0;
 	private boolean taskActive = false;
+	private AtomicBoolean retreat = new AtomicBoolean(false);
 	private Timer timer = new Timer();
 	private MusicContainer musicContainer;
 	
@@ -43,7 +45,7 @@ public class Bomb {
 //     }
 
     public void startBomb(){
-        TimerTask countdown = new Countdown(musicContainer);
+        TimerTask countdown = new Countdown(musicContainer, retreat);
     	timer.schedule(countdown, 1000, 1000);
     }
 
@@ -64,6 +66,14 @@ public class Bomb {
     
     public synchronized void startTask() {
     	taskActive = true;
+    }
+    
+    public synchronized void setRetreat(boolean bool) {
+    	retreat.set(bool);
+    }
+    
+    public synchronized boolean getRetreat() {
+    	return retreat.get();
     }
     
     public void taskFinished() {
