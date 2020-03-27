@@ -6,6 +6,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import countdown.Countdown;
 import music.MusicContainer;
 
+/**
+ * Bomb class is used to simulate the bomb virtually. allowing us to create a timer and defuse order for the bomb. 
+ * 
+ * Bomb class is also used to control which behaviours should currently be active
+ * 
+ * @author harry
+ *
+ */
 
 public class Bomb {
 	private char[] defuseOrder = new char[4];
@@ -16,7 +24,13 @@ public class Bomb {
 	private MusicContainer musicContainer;
 	
 
-	public Bomb(String bombType, MusicContainer musicContainer) {
+	/**
+	 * Constructor that creates the appropriate virtual bomb based off of the received QR code
+	 * 
+	 * @param bombType
+	 * @param musicContainer
+	 */
+	public Bomb(String bombType, MusicContainer musicContainer) { 
 		this.musicContainer = musicContainer;
 		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R';
@@ -38,12 +52,10 @@ public class Bomb {
 		}
     }
 
-	/** NOT NEEDED - we have a behavior for this now **/
-//     public void bombDefused(){
-//         timer.cancel();
-//         System.out.println("Bomb Defused!!!");
-//     }
-
+	/**
+	 * 
+	 * Starts the timer for the bomb and schedules the tasks
+	 */
     public void startBomb(){
         TimerTask countdown = new Countdown(musicContainer, retreat);
     	timer.schedule(countdown, 1000, 1000);
@@ -56,10 +68,18 @@ public class Bomb {
     public synchronized char getNextColor() {
     	return defuseOrder[index];
     }
+    
+    /** 
+     * Increments the index of the defuseOrder array 
+     */
     public synchronized void increment() {
     	index++;
     }
     
+    /**
+     * Used as a flag to prevent other behaviours from taking over during a defuse task.
+     * @return taskActive
+     */
     public synchronized boolean isTaskActive() {
     	return taskActive;
     } 
