@@ -22,9 +22,6 @@ public class MusicContainer {
 	private Music music;
 	private MusicPlayer player;
 	
-	public MusicContainer() {
-	}
-	
 	/**
 	 * Set the music to play
 	 * @param music the music to play
@@ -49,7 +46,6 @@ public class MusicContainer {
 				player.interrupt();
 			}
 		}, time);
-		
 	}
 	
 	/**
@@ -57,6 +53,7 @@ public class MusicContainer {
 	 */
 	public void stopMusic() {
 		player.interrupt();
+		player = null;
 	}
 	
 	// Plays some pleasant exit tones - called in EscapeButtonBehavior and BatteryBehavior
