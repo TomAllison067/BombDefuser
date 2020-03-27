@@ -18,6 +18,7 @@ import qr.AndroidSensor;
 import tasks.ButtonPress;
 import tasks.DefusalComplete;
 import tasks.Flipper;
+import tasks.Retreat;
 import tasks.WireCut;
 import utils.Bomb;
 import utils.EscapeButtonBehavior;
@@ -90,6 +91,7 @@ public class Driver {
 														new ButtonPress(motorContainer, bomb, colorSensor),
 														new WireCut(motorContainer, bomb, colorSensor),
 														new DefusalComplete(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
+														new Retreat(motorContainer),
 														new BatteryBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
 														new EscapeButtonBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
 

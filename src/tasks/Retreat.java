@@ -1,21 +1,21 @@
 package tasks;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.robotics.Color;
-import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
-import utils.Bomb;
+import music.MusicContainer;
 import utils.MotorContainer;
 
 public class Retreat implements Behavior{
-
-	MotorContainer container;
+	MotorContainer motorContainer;
+	MusicContainer musicContainer;
+	
+	public Retreat(MotorContainer motorContainer, MusicContainer musicContainer) {
+		this.motorContainer = motorContainer;
+		this.musicContainer = musicContainer;
+	}
 	
 	
 	@Override
 	public boolean takeControl() {
-		
-		
+		// When countdown is low -- how?
 	}
 
 	@Override
