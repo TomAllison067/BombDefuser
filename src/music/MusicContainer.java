@@ -44,6 +44,7 @@ public class MusicContainer {
 			@Override
 			public void run() {
 				player.interrupt();
+				player = null;
 			}
 		}, time);
 	}
