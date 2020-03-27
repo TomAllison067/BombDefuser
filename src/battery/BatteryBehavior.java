@@ -54,10 +54,7 @@ public class BatteryBehavior implements Behavior {
 		// Display warning message
 		LCD.clear();
 		LCD.drawString("Battery low", 0, 0);
-		LCD.drawString("Please charge", 0, 1);
-		LCD.drawString("and restart", 0, 2);
-
-		LCD.drawString("Press ENTER to quit", 0, 4);
+		LCD.drawString("Press ENTER to quit", 0, 2);
 		Button.ENTER.waitForPressAndRelease();
 		thread.interrupt();
 
@@ -77,7 +74,6 @@ public class BatteryBehavior implements Behavior {
 
 /**
  * Simple thread to emit warning beeps every 2 seconds
- * 
  * @author Tom
  */
 class Beeper implements Runnable {
