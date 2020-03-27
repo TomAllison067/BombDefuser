@@ -20,6 +20,11 @@ public class WireCut implements Behavior{
 		this.colorSensor = colorSensor;
 	}
 	
+	/**
+	 * For the behaviour to take control and run the robot detect the same colour as the current colour in the defuse order
+	 * 
+	 * @author harry
+	 */
 	@Override
 	public boolean takeControl() {
 		SampleProvider provider = colorSensor.getColorIDMode();
