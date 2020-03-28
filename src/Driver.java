@@ -13,7 +13,6 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import music.MusicContainer;
 import qr.AndroidSensor;
 import tasks.ButtonPress;
 import tasks.DefusalComplete;
@@ -74,10 +73,9 @@ public class Driver {
 		
 		
 		/*
-		 * Initialise the abstraction of the bomb given the bombType, and initialise the music container
+		 * Initialise the abstraction of the bomb given the bombType, and initialise the music player
 		 */
-		MusicContainer musicContainer = new MusicContainer();
-		Bomb bomb = new Bomb(bombType, musicContainer);
+		Bomb bomb = new Bomb(bombType);
 		bomb.startBomb();
 		
 		
@@ -90,10 +88,10 @@ public class Driver {
 														new Flipper(motorContainer, bomb, colorSensor), 
 														new ButtonPress(motorContainer, bomb, colorSensor),
 														new WireCut(motorContainer, bomb, colorSensor),
-														new DefusalComplete(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
-														new Retreat(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
-														new BatteryBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
-														new EscapeButtonBehavior(motorContainer, musicContainer, bomb, distanceSensor, colorSensor),
+														new DefusalComplete(motorContainer, bomb, distanceSensor, colorSensor),
+														new Retreat(motorContainer, bomb, distanceSensor, colorSensor),
+														new BatteryBehavior(motorContainer, bomb, distanceSensor, colorSensor),
+														new EscapeButtonBehavior(motorContainer, bomb, distanceSensor, colorSensor),
 
 		});
 		arb.go();

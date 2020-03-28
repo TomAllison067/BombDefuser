@@ -7,7 +7,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
-import music.MusicContainer;
+import music.MusicPlayer;
 import utils.Bomb;
 import utils.MotorContainer;
 
@@ -20,15 +20,13 @@ import utils.MotorContainer;
 public class BatteryBehavior implements Behavior {
 	final float SHUTDOWN_VOLTAGE = 6.1f;
 	private MotorContainer container;
-	private MusicContainer musicContainer;
 	private Bomb bomb;
 	private EV3UltrasonicSensor us;
 	private EV3ColorSensor cs;
 
-	public BatteryBehavior(MotorContainer container, MusicContainer musicContainer, Bomb bomb, EV3UltrasonicSensor us,
+	public BatteryBehavior(MotorContainer container, Bomb bomb, EV3UltrasonicSensor us,
 			EV3ColorSensor cs) {
 		this.container = container;
-		this.musicContainer = musicContainer;
 		this.bomb = bomb;
 		this.us = us;
 		this.cs = cs;
@@ -43,7 +41,7 @@ public class BatteryBehavior implements Behavior {
 	public void action() {
 		// Stop the countdown, silence any music and stop any motors
 		bomb.stopCountdown();
-		musicContainer.stopMusic();
+		MusicPlayer.putMusicOn(null);
 		container.stop();
 
 		// Emit warning beeps every 2 seconds
@@ -63,7 +61,7 @@ public class BatteryBehavior implements Behavior {
 		cs.close();
 
 		// Play exit tones and exit
-		musicContainer.exitSound();
+		MusicPlayer.playExitSound();
 		System.exit(0);
 	}
 

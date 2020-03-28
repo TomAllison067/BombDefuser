@@ -4,7 +4,6 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import countdown.Countdown;
-import music.MusicContainer;
 
 /**
  * Bomb class is used to simulate the bomb virtually. allowing us to create a timer and defuse order for the bomb. 
@@ -19,9 +18,9 @@ public class Bomb {
 	private char[] defuseOrder = new char[4];
 	private int index = 0;
 	private boolean taskActive = false;
-	private AtomicBoolean retreat = new AtomicBoolean(false);
 	private Timer timer = new Timer();
-	private MusicContainer musicContainer;
+	
+	private AtomicBoolean retreat = new AtomicBoolean(false); // Flag to trigger the retreat behaviour
 	
 
 	/**
@@ -30,8 +29,7 @@ public class Bomb {
 	 * @param bombType
 	 * @param musicContainer
 	 */
-	public Bomb(String bombType, MusicContainer musicContainer) { 
-		this.musicContainer = musicContainer;
+	public Bomb(String bombType) { 
 		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R';
 			defuseOrder[1] = 'G';
@@ -57,7 +55,7 @@ public class Bomb {
 	 * Starts the timer for the bomb and schedules the tasks
 	 */
     public void startBomb(){
-        TimerTask countdown = new Countdown(musicContainer, retreat);
+        TimerTask countdown = new Countdown(retreat);
     	timer.schedule(countdown, 1000, 1000);
     }
 
@@ -88,10 +86,18 @@ public class Bomb {
     	taskActive = true;
     }
     
+    /**
+     * Used to set the retreat flag
+     * @param bool true/false
+     */
     public synchronized void setRetreat(boolean bool) {
     	retreat.set(bool);
     }
     
+    /**
+     * Return the retreat flag
+     * @return true/false
+     */
     public synchronized boolean getRetreat() {
     	return retreat.get();
     }
