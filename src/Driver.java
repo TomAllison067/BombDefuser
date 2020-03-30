@@ -24,11 +24,11 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
-	private static final float DISTANCE_DIFFERENCE = 0.03f;
+	private static final float DISTANCE_DIFFERENCE = 0.1f;
 	
 	public static void main(String[] args) {
 		
-		LCD.drawString("Defuser v5", 0, 0);
+		LCD.drawString("Defuser v21", 0, 0);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
@@ -75,7 +75,7 @@ public class Driver {
 			}	
 		}
 		
-		
+		LCD.clear();
 		/*
 		 * Initialise the abstraction of the bomb given the bombType, and initialise the music player
 		 */
@@ -87,7 +87,7 @@ public class Driver {
 		 * Now we're ready to go!
 		 */
 		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
-														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
+														new TurnRight(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
 														new MoveForward(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(motorContainer, bomb, colorSensor), 
 														new ButtonPress(motorContainer, bomb, colorSensor),
@@ -98,7 +98,9 @@ public class Driver {
 														new EscapeButtonBehavior(motorContainer, bomb, distanceSensor, colorSensor),
 
 		});
+		System.out.println("\n\n\n\n\n\n\n\n"); // Clear the 'Arbitrator created' text from the Arbitrator's constructor
 		arb.go();
+		
 	}
 	
 	/**

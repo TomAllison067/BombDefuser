@@ -35,11 +35,11 @@ public class MusicPlayer implements Runnable {
 				if (musicToPlay != null) {
 					playTune(musicToPlay.getFileName());
 				} else {
-					Thread.sleep(100);
+					Thread.yield();
 				}
 			}
 		} catch (InterruptedException e) {
-			// Do nothing - simply keep looping
+			Thread.yield();
 		}
 	}
 
@@ -80,10 +80,13 @@ public class MusicPlayer implements Runnable {
 	 * program (BatteryBehavior, DefusalComplete, EscapeButtonBehavior, Retreat)
 	 */
 	public static void playExitSound() {
-		Sound.playTone(F5, NOTE_LENGTH);
-		Delay.msDelay(NOTE_LENGTH);
-		Sound.playTone(D5, NOTE_LENGTH);
-		Delay.msDelay(NOTE_LENGTH);
-		Sound.playTone(A4, NOTE_LENGTH);
+		try {
+			Sound.playTone(F5, NOTE_LENGTH);
+			Thread.sleep(NOTE_LENGTH);
+			Sound.playTone(D5, NOTE_LENGTH);
+			Delay.msDelay(NOTE_LENGTH);
+			Sound.playTone(A4, NOTE_LENGTH);
+		} catch (InterruptedException e) {
+		}
 	}
 }

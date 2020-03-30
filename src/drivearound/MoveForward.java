@@ -32,7 +32,7 @@ public class MoveForward implements Behavior {
 		
 		provider.fetchSample(sample, 0);
 		
-		return !bomb.isTaskActive() &&  sample[0] < maxDistance && sample[0] > minDistance;
+		return !bomb.isTaskActive() && sample[0] < maxDistance && sample[0] > minDistance;
 		
 	}
 
