@@ -41,11 +41,11 @@ public class Retreat implements Behavior{
 		Delay.msDelay(2000);
 		MusicPlayer.putMusicOn(null);
 		
-		// Exit program
+		// Close sensors
 		distanceSensor.close();
 		colorSensor.close();
-		MusicPlayer.playExitSound();
 		
+		// Exit 
 		System.exit(0);
 		
 	}

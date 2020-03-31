@@ -3,7 +3,6 @@ package music;
 import java.io.File;
 
 import lejos.hardware.Sound;
-import lejos.utility.Delay;
 
 /**
  * MusicPlayer can start a thread that plays audio files, or nothing. It can
@@ -20,14 +19,8 @@ public class MusicPlayer implements Runnable {
 	private static Music musicToPlay = null;
 	private static Thread myThread = null;
 
-	final static int F5 = 698;
-	final static int D5 = 587;
-	final static int A4 = 440;
-	final static int NOTE_LENGTH = 250;
-
 	/**
-	 * Calls playTune(fileName). If musicToPlay is null, simply sleeps the thread
-	 * for 1/10th second.
+	 * Calls playTune(fileName). If musicToPlay is null, simply do nothing.
 	 */
 	public void run() {
 		try {
@@ -39,7 +32,6 @@ public class MusicPlayer implements Runnable {
 				}
 			}
 		} catch (InterruptedException e) {
-			Thread.yield();
 		}
 	}
 
@@ -72,21 +64,6 @@ public class MusicPlayer implements Runnable {
 		if (musicToPlay != music) {
 			myThread.interrupt();
 			music = musicToPlay;
-		}
-	}
-
-	/**
-	 * Simply plays some tones. Called by behaviors which deal with exiting the
-	 * program (BatteryBehavior, DefusalComplete, EscapeButtonBehavior, Retreat)
-	 */
-	public static void playExitSound() {
-		try {
-			Sound.playTone(F5, NOTE_LENGTH);
-			Thread.sleep(NOTE_LENGTH);
-			Sound.playTone(D5, NOTE_LENGTH);
-			Delay.msDelay(NOTE_LENGTH);
-			Sound.playTone(A4, NOTE_LENGTH);
-		} catch (InterruptedException e) {
 		}
 	}
 }

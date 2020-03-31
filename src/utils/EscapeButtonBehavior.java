@@ -45,8 +45,7 @@ public class EscapeButtonBehavior implements Behavior {
 		LCD.clear();
 		LCD.drawString("Quitting...", 0, 0);
 
-		// Play exit tones and exit
-		MusicPlayer.playExitSound();
+		// Exit
 		System.exit(0);
 	}
 

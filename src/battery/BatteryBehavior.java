@@ -60,8 +60,7 @@ public class BatteryBehavior implements Behavior {
 		us.close();
 		cs.close();
 
-		// Play exit tones and exit
-		MusicPlayer.playExitSound();
+		// Exit
 		System.exit(0);
 	}
 
