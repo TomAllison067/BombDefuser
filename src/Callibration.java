@@ -12,6 +12,11 @@ public class Callibration {
 		BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
 		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
 		
+		mLeft.synchronizeWith(new BaseRegulatedMotor[] {mRight});
+
+		mLeft.setSpeed(360);
+		mRight.setSpeed(360);
+		
 		LCD.clear();
 		LCD.drawString("Press Enter", 2, 2);
 		
@@ -20,18 +25,26 @@ public class Callibration {
 		LCD.clear();
 		LCD.drawString("Press when 20cm", 2, 2);
 		
+		mLeft.startSynchronization();
+		mLeft.forward();
+		mRight.forward();
+		mLeft.endSynchronization();
+		
 		long time = System.currentTimeMillis();
-		do {
-			
-		} while (Button.ENTER.isUp());
-		
-		time = System.currentTimeMillis() - time;
-		
-		Button.ENTER.waitForPressAndRelease();
+
 		Button.ENTER.waitForPressAndRelease();
 		
+		mLeft.startSynchronization();
+		mLeft.stop();
+		mRight.stop();
+		mLeft.endSynchronization();
+		
+		time = System.currentTimeMillis() - time;	
+	
 		LCD.clear();
 		LCD.drawString(Long.toString(time), 2, 2);
+		
+		Button.ENTER.waitForPressAndRelease();
 		
 		mLeft.close();
 		mRight.close();
