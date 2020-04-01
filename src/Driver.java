@@ -24,11 +24,11 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
-	private static final float DISTANCE_DIFFERENCE = 0.1f;
+	private static final float DISTANCE_DIFFERENCE = 0.05f;
 	
 	public static void main(String[] args) {
 		
-		LCD.drawString("Defuser v21", 0, 0);
+		LCD.drawString("Defuser v27", 0, 0);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
@@ -119,15 +119,33 @@ public class Driver {
 	 * @return an array of two distances - [0] the minimum distance the robot should be from the box, and [1] the maximum.
 	 */
 	private static float[] calibrateDistance(EV3UltrasonicSensor distanceSensor) {
-		LCD.clear();
-		LCD.drawString("Place the robot...", 2, 2);
+		float minDistance, currentDistance, maxDistance;
 		float[] sample = new float[1];
-		do {
-			SampleProvider provider = distanceSensor.getDistanceMode();
-			provider.fetchSample(sample, 0);
-		} while (Button.ENTER.isUp());
-		float[] distances = {sample[0] - (DISTANCE_DIFFERENCE / 2),
-							sample[0] + (DISTANCE_DIFFERENCE / 2)};
+		SampleProvider sp = distanceSensor.getDistanceMode();
+		
+		LCD.clear();
+		LCD.drawString("Place the robot...", 0, 0);
+		LCD.drawString("ENTER to calibrate", 0, 1);
+		LCD.drawString("ESCAPE to finish", 0, 5);
+		
+		while(true) {
+			sp.fetchSample(sample, 0);
+			currentDistance = sample[0];
+			minDistance = currentDistance - (DISTANCE_DIFFERENCE / 2);
+			maxDistance = currentDistance + (DISTANCE_DIFFERENCE / 2);
+			if (Button.ENTER.isDown()) {
+				LCD.clear();
+				LCD.drawString("ENTER to calibrate", 0, 1);
+				LCD.drawString("Min: " + minDistance, 0, 2);
+				LCD.drawString("Cur: " + currentDistance, 0, 3);
+				LCD.drawString("Max: " + maxDistance, 0, 4);
+				LCD.drawString("ESCAPE to finish", 0, 5);
+			}
+			if (Button.ESCAPE.isDown()) {
+				break;
+			}
+		}
+		float[] distances = {minDistance, currentDistance, maxDistance};
 		return distances;
 	}
 

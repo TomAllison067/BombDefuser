@@ -29,7 +29,7 @@ public class TurnLeft implements Behavior {
 		
 		provider.fetchSample(sample, 0);
 		
-		return !bomb.isTaskActive() && sample[0] > maxDistance && (sample[0] < 2 * maxDistance);
+		return !bomb.isTaskActive() && sample[0] > maxDistance;
 		
 	}
 
