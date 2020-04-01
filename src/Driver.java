@@ -28,7 +28,7 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		
-		LCD.drawString("Defuser v27", 0, 0);
+		LCD.drawString("Defuser v28", 0, 0);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();

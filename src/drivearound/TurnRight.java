@@ -32,7 +32,7 @@ public class TurnRight implements Behavior {
 		provider.fetchSample(sample, 0);
 		
 		// Added || sample[0] >= 2 * maxDistance to try and make it turn back if it loses sight of the bomb
-		return !bomb.isTaskActive() && sample[0] < minDistance;
+		return !bomb.isTaskActive() && (sample[0] < minDistance || sample[0] >= 2 * maxDistance);
 	}
 
 	@Override
