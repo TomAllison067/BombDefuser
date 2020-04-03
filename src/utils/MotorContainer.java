@@ -34,7 +34,7 @@ public class MotorContainer {
 	 * To be used in TurnLeft Behavior
 	 */
 	public void correctLeft() {
-		this.mLeft.setSpeed(70);
+		this.mLeft.setSpeed(80);
 		this.mRight.setSpeed(200);
 		mLeft.startSynchronization();
 
@@ -73,6 +73,7 @@ public class MotorContainer {
 	 * Move the motors forward simultaneously at the current speed
 	 */
 	public void forward() {
+		this.setSpeed(70);
 		mLeft.startSynchronization();
 		mLeft.forward();
 		mRight.forward();

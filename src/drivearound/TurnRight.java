@@ -13,7 +13,6 @@ public class TurnRight implements Behavior {
 	private EV3UltrasonicSensor sensor;
 	private Bomb bomb;
 	private float minDistance;
-	private float maxDistance;
 	
 	public TurnRight(MotorContainer container, EV3UltrasonicSensor sensor, float minDistance, float maxDistance, Bomb bomb) {
 		super();
@@ -21,7 +20,6 @@ public class TurnRight implements Behavior {
 		this.sensor = sensor;
 		this.bomb = bomb;
 		this.minDistance = minDistance;
-		this.maxDistance = maxDistance;
 	}
 
 	@Override
@@ -32,13 +30,12 @@ public class TurnRight implements Behavior {
 		provider.fetchSample(sample, 0);
 		
 		// Added || sample[0] >= 2 * maxDistance to try and make it turn back if it loses sight of the bomb
-		return !bomb.isTaskActive() && (sample[0] < minDistance || sample[0] >= 2 * maxDistance);
+		return !bomb.isTaskActive() && (sample[0] < minDistance);
 	}
 
 	@Override
 	public void action() {
 		container.correctRight();
-		
 	}
 
 	@Override

@@ -24,11 +24,11 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
-	private static final float DISTANCE_DIFFERENCE = 0.05f;
+	private static final float DISTANCE_DIFFERENCE = 0.025f;
 	
 	public static void main(String[] args) {
 		
-		LCD.drawString("Defuser v28", 0, 0);
+		LCD.drawString("Defuser v34", 0, 0);
 		LCD.drawString("Press ENTER", 2, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();

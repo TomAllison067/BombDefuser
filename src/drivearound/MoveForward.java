@@ -38,7 +38,6 @@ public class MoveForward implements Behavior {
 
 	@Override
 	public void action() {
-		container.stop();
 		container.forward();
 	}
 
