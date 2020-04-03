@@ -32,8 +32,8 @@ public class Bomb {
 	public Bomb(String bombType) { 
 		if(bombType.equals("QR: 1")) {
 			defuseOrder[0] = 'R'; // Cut
-			defuseOrder[1] = 'G'; // Flip
-			defuseOrder[2] = 'B'; // Touch
+			defuseOrder[1] = 'B'; // Touch
+			defuseOrder[2] = 'G'; // Flip
 			defuseOrder[3] = 'F'; // Finished
 		}
 		else if(bombType.equals("QR: 2")) {
