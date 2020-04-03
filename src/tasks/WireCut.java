@@ -39,7 +39,7 @@ public class WireCut implements Behavior{
 	@Override
 	public void action() {
 		LCD.clear();
-		LCD.drawString("WireCut Active", 2, 2);
+		LCD.drawString("WireCut Active", 0, 6);
 		
 		bomb.startTask();
 		
