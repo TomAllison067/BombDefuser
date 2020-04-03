@@ -31,22 +31,22 @@ public class Bomb {
 	 */
 	public Bomb(String bombType) { 
 		if(bombType.equals("QR: 1")) {
-			defuseOrder[0] = 'R';
-			defuseOrder[1] = 'G';
-			defuseOrder[2] = 'B';
-			defuseOrder[3] = 'F';
+			defuseOrder[0] = 'R'; // Cut
+			defuseOrder[1] = 'G'; // Flip
+			defuseOrder[2] = 'B'; // Touch
+			defuseOrder[3] = 'F'; // Finished
 		}
 		else if(bombType.equals("QR: 2")) {
-			defuseOrder[0] = 'G';
-			defuseOrder[1] = 'R';
-			defuseOrder[2] = 'B';
-			defuseOrder[3] = 'F';
+			defuseOrder[0] = 'G'; // Flip
+			defuseOrder[1] = 'R'; // Cut
+			defuseOrder[2] = 'B'; // Touch
+			defuseOrder[3] = 'F'; // Finished
 		}
 		else if(bombType.equals("QR: 3")) {
-			defuseOrder[0] = 'B';
-			defuseOrder[1] = 'G';
-			defuseOrder[2] = 'R';
-			defuseOrder[3] = 'F';
+			defuseOrder[0] = 'B'; // Touch
+			defuseOrder[1] = 'G'; // Flip
+			defuseOrder[2] = 'R'; // Cut
+			defuseOrder[3] = 'F'; // Finished
 		}
     }
 

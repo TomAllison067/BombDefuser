@@ -69,7 +69,7 @@ public class ButtonPress implements Behavior{
 		Delay.msDelay(2000);
 		container.stop();
 		
-		container.turnRight(90);
+		container.turnLeft(90);
 		
 		bomb.increment();
 		bomb.taskFinished();
