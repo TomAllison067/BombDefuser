@@ -37,7 +37,7 @@ public class Flipper implements Behavior{
 		
 		provider.fetchSample(sample, 0);
 		
-		return bomb.getNextColor() == 'G' && sample[0] == Color.GREEN;
+		return bomb.getNextColor() == 'R' && sample[0] == Color.RED;
 		
 	}
 

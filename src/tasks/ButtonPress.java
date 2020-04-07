@@ -39,7 +39,7 @@ public class ButtonPress implements Behavior{
 		
 		provider.fetchSample(sample, 0);
 		
-		return bomb.getNextColor() == 'B' && sample[0] == Color.BLUE;
+		return bomb.getNextColor() == 'G' && sample[0] == Color.GREEN;
 		
 	}
 

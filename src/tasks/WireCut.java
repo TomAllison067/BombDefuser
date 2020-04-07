@@ -32,7 +32,7 @@ public class WireCut implements Behavior{
 		
 		provider.fetchSample(sample, 0);
 		
-		return bomb.getNextColor() == 'R' && sample[0] == Color.RED;
+		return bomb.getNextColor() == 'B' && sample[0] == Color.BLUE;
 		
 	}
 
