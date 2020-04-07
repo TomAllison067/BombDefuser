@@ -11,6 +11,17 @@ public class MotorContainer {
 	
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
 	
+	/**
+	 * Different speeds for left turning around different bomb sizes:
+	 * bigBomb (a3 paper)
+	 * smallBomb (a4 paper)
+	 */
+	static final int LEFTMOTOR_SMALLBOMB_SPEED = 60;
+	static final int RIGHTMOTOR_SMALLBOMB_SPEED = 150;
+	
+	static final int LEFTMOTOR_BIGBOMB_SPEED = 80;
+	static final int RIGHTMOTOR_BIGBOMB_SPEED = 200;
+	
 	private BaseRegulatedMotor mLeft;
 	private BaseRegulatedMotor mRight;
 	
@@ -34,8 +45,8 @@ public class MotorContainer {
 	 * To be used in TurnLeft Behavior
 	 */
 	public void correctLeft() {
-		this.mLeft.setSpeed(80);
-		this.mRight.setSpeed(200);
+		this.mLeft.setSpeed(LEFTMOTOR_BIGBOMB_SPEED);
+		this.mRight.setSpeed(RIGHTMOTOR_BIGBOMB_SPEED);
 		mLeft.startSynchronization();
 
 		mLeft.forward();
