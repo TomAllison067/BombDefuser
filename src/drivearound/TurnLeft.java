@@ -14,7 +14,7 @@ public class TurnLeft implements Behavior {
 	private Bomb bomb;
 	private float maxDistance;
 	
-	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float maxDistance,Bomb bomb) {
+	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float maxDistance, Bomb bomb) {
 		super();
 		this.container = container;
 		this.sensor = sensor;

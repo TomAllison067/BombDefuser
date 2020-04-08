@@ -10,17 +10,9 @@ public class MotorContainer {
 	 */
 	
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
-	
-	/**
-	 * Different speeds for left turning around different bomb sizes:
-	 * bigBomb (a3 paper)
-	 * smallBomb (a4 paper)
-	 */
-	static final int LEFTMOTOR_SMALLBOMB_SPEED = 60;
-	static final int RIGHTMOTOR_SMALLBOMB_SPEED = 150;
-	
-	static final int LEFTMOTOR_BIGBOMB_SPEED = 80;
-	static final int RIGHTMOTOR_BIGBOMB_SPEED = 200;
+	static final int LEFTMOTOR_TURN_SPEED = 50;
+	static final int RIGHTMOTOR_TURN_SPEED = 150;
+	static final int FORWARD_SPEED = 70;
 	
 	private BaseRegulatedMotor mLeft;
 	private BaseRegulatedMotor mRight;
@@ -45,8 +37,8 @@ public class MotorContainer {
 	 * To be used in TurnLeft Behavior
 	 */
 	public void correctLeft() {
-		this.mLeft.setSpeed(LEFTMOTOR_BIGBOMB_SPEED);
-		this.mRight.setSpeed(RIGHTMOTOR_BIGBOMB_SPEED);
+		mLeft.setSpeed(LEFTMOTOR_TURN_SPEED);
+		mRight.setSpeed(RIGHTMOTOR_TURN_SPEED);
 		mLeft.startSynchronization();
 
 		mLeft.forward();
@@ -60,8 +52,8 @@ public class MotorContainer {
 	 * To be used in TurnRight Behavior
 	 */
 	public void correctRight() {
-		this.mLeft.setSpeed(200);
-		this.mRight.setSpeed(70);
+		mLeft.setSpeed(LEFTMOTOR_TURN_SPEED);
+		mRight.setSpeed(RIGHTMOTOR_TURN_SPEED);
 		mLeft.startSynchronization();
 		
 		mLeft.forward();
@@ -84,7 +76,7 @@ public class MotorContainer {
 	 * Move the motors forward simultaneously at the current speed
 	 */
 	public void forward() {
-		this.setSpeed(70);
+		setSpeed(FORWARD_SPEED);
 		mLeft.startSynchronization();
 		mLeft.forward();
 		mRight.forward();

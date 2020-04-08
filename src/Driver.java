@@ -24,63 +24,24 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
-	private static final float DISTANCE_DIFFERENCE = 0.025f;
+	private static final float DISTANCE_DIFFERENCE = 0.03f;
+	private static MotorContainer motorContainer;
+	private static EV3UltrasonicSensor distanceSensor;
+	private static EV3ColorSensor colorSensor;
+	private static float[] distances;
+	private static float minDistance;
+	private static float maxDistance;
+	private static String bombType;
+	private static Bomb bomb;
 	
 	public static void main(String[] args) {
 		
-		LCD.drawString("Defuser v35", 0, 0);
-		LCD.drawString("Press ENTER", 2, 3);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
+
 		/*
 		 * Initialise motors and sensors
 		 */
-		LCD.drawString("Initialising...", 2, 2);
-		MotorContainer motorContainer = initMotorContainer();
-		EV3UltrasonicSensor distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
-		EV3ColorSensor colorSensor = new EV3ColorSensor(SensorPort.S2);
-		LCD.drawString("Press ENTER", 2, 3);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-		
-		
-		/*
-		 * Calibrate distance sensor
-		 */
-		LCD.drawString("Calibration..", 2, 2);
-		LCD.drawString("Press ENTER", 2, 3);
-		Button.ENTER.waitForPressAndRelease();
-		float[] distances = calibrateDistance(distanceSensor);
-		float minDistance = distances[0];
-		float maxDistance = distances[1];
-		LCD.clear();
-		LCD.drawString("Calibration complete", 2, 2);
-		LCD.drawString("Press ENTER", 2, 3);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-		
-		
-		/*
-		 * Connect to the phone and scan in the QR code in order to get the bombType to defuse (and thus defusal order)
-		 */
-		AndroidSensor phone = new AndroidSensor();
-		phone.startThread();
-		String bombType;
-		String qrInfo;
-		while(true) { // Can we make this bit all one method to make it neater or is it more effort than it's worth?
-			qrInfo = phone.getMessage();
-			if(!qrInfo.equals("")) {
-				bombType = qrInfo;
-				break;
-			}	
-		}
-		
-		LCD.clear();
-		/*
-		 * Initialise the abstraction of the bomb given the bombType, and initialise the music player
-		 */
-		Bomb bomb = new Bomb(bombType);
-		bomb.startBomb();
+		LCD.drawString("Defuser v49", 0, 0);
+		initialise();
 		
 		
 		/*
@@ -102,6 +63,58 @@ public class Driver {
 		arb.go();
 		
 	}
+	
+	private static void initialise() {
+		LCD.drawString("Initialising...", 0, 2);
+		motorContainer = initMotorContainer();
+		distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
+		colorSensor = new EV3ColorSensor(SensorPort.S2);
+		
+		/*
+		 * Welcome screen
+		 */
+		LCD.clear(2);
+		LCD.drawString("Press ENTER", 0, 3);
+		Button.ENTER.waitForPressAndRelease();
+		LCD.clear();
+		
+		
+		/*
+		 * Calibrate distance sensor
+		 */
+		LCD.drawString("Calibration..", 2, 2);
+		LCD.drawString("Press ENTER", 2, 3);
+		Button.ENTER.waitForPressAndRelease();
+		distances = calibrateDistance(distanceSensor);
+		minDistance = distances[0];
+		maxDistance = distances[1];
+		LCD.clear();
+		LCD.drawString("Calibration complete", 2, 2);
+		LCD.drawString("Press ENTER", 2, 3);
+		Button.ENTER.waitForPressAndRelease();
+		LCD.clear();
+		
+		/*
+		 * Connect to the phone and scan in the QR code in order to get the bombType to defuse (and thus defusal order)
+		 */
+		AndroidSensor phone = new AndroidSensor();
+		phone.startThread();
+		String qrInfo;
+		while(true) { // Can we make this bit all one method to make it neater or is it more effort than it's worth?
+			qrInfo = phone.getMessage();
+			if(!qrInfo.equals("")) {
+				bombType = qrInfo;
+				break;
+			}	
+		}
+		LCD.clear();
+		/*
+		 * Initialise the abstraction of the bomb given the bombType
+		 */
+		bomb = new Bomb(bombType);
+		bomb.startBomb();
+	}
+	
 	
 	/**
 	 * Initialises a new MotorContainer
