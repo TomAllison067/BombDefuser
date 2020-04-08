@@ -10,8 +10,8 @@ public class MotorContainer {
 	 */
 	
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
-	static final int LEFTMOTOR_TURN_SPEED = 50;
-	static final int RIGHTMOTOR_TURN_SPEED = 150;
+	static final int INNER_TURN_SPEED = 50;
+	static final int OUTER_TURN_SPEED = 150;
 	static final int FORWARD_SPEED = 70;
 	
 	private BaseRegulatedMotor mLeft;
@@ -37,8 +37,8 @@ public class MotorContainer {
 	 * To be used in TurnLeft Behavior
 	 */
 	public void correctLeft() {
-		mLeft.setSpeed(LEFTMOTOR_TURN_SPEED);
-		mRight.setSpeed(RIGHTMOTOR_TURN_SPEED);
+		mLeft.setSpeed(INNER_TURN_SPEED);
+		mRight.setSpeed(OUTER_TURN_SPEED);
 		mLeft.startSynchronization();
 
 		mLeft.forward();
@@ -52,8 +52,8 @@ public class MotorContainer {
 	 * To be used in TurnRight Behavior
 	 */
 	public void correctRight() {
-		mLeft.setSpeed(LEFTMOTOR_TURN_SPEED);
-		mRight.setSpeed(RIGHTMOTOR_TURN_SPEED);
+		mLeft.setSpeed(OUTER_TURN_SPEED);
+		mRight.setSpeed(INNER_TURN_SPEED);
 		mLeft.startSynchronization();
 		
 		mLeft.forward();
