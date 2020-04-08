@@ -10,8 +10,8 @@ public class MotorContainer {
 	 */
 	
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
-	static final int INNER_TURN_SPEED = 50;
-	static final int OUTER_TURN_SPEED = 150;
+	static final int INNER_TURN_SPEED = 85;
+	static final int OUTER_TURN_SPEED = 195;
 	static final int FORWARD_SPEED = 70;
 	
 	private BaseRegulatedMotor mLeft;

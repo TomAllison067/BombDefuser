@@ -45,28 +45,28 @@ public class ButtonPress implements Behavior{
 
 	@Override
 	public void action() {
-		
 		LCD.clear();
 		LCD.drawString("Flipper Active", 0, 6);
-		
 		bomb.startTask();
 		
 		container.turnRight(90);
 		
-		container.backward();
+		long startTime, stopTime;
+		startTime = System.currentTimeMillis();
 		
+		container.backward();
 		while(true) {
 			touch.fetchSample(sample, 0);
 			if(sample[0]==1) {
 				container.stop();
+				stopTime = System.currentTimeMillis();
 				break;
-				
 			}
 		}
 		touchSensor.close();
 		
 		container.forward();
-		Delay.msDelay(2000);
+		Delay.msDelay(stopTime - startTime);
 		container.stop();
 		
 		container.turnLeft(90);

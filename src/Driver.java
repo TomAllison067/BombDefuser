@@ -38,7 +38,7 @@ public class Driver {
 		/*
 		 * Initialise motors and sensors
 		 */
-		LCD.drawString("Defuser v51", 0, 0);
+		LCD.drawString("Defuser v53", 0, 0);
 		initialise();
 		
 		
