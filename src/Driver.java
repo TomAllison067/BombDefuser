@@ -24,7 +24,7 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 public class Driver {
-	private static final float DISTANCE_DIFFERENCE = 0.03f;
+	private static final float DISTANCE_DIFFERENCE = 0.025f;
 	private static MotorContainer motorContainer;
 	private static EV3UltrasonicSensor distanceSensor;
 	private static EV3ColorSensor colorSensor;
@@ -40,7 +40,7 @@ public class Driver {
 		/*
 		 * Initialise motors and sensors
 		 */
-		LCD.drawString("Defuser v49", 0, 0);
+		LCD.drawString("Defuser v50", 0, 0);
 		initialise();
 		
 		
@@ -48,7 +48,7 @@ public class Driver {
 		 * Now we're ready to go!
 		 */
 		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
-														new TurnRight(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
+														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
 														new MoveForward(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
 														new Flipper(motorContainer, bomb, colorSensor), 
 														new ButtonPress(motorContainer, bomb, colorSensor),

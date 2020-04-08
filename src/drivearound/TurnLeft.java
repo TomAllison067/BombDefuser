@@ -26,9 +26,7 @@ public class TurnLeft implements Behavior {
 	public boolean takeControl() {
 		SampleProvider provider = sensor.getDistanceMode();
 		float[] sample = new float[1];
-		
 		provider.fetchSample(sample, 0);
-		
 		return !bomb.isTaskActive() && sample[0] > maxDistance;
 		
 	}
