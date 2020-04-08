@@ -4,7 +4,6 @@ import drivearound.TurnLeft;
 import drivearound.TurnRight;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
@@ -28,7 +27,6 @@ public class Driver {
 	private static MotorContainer motorContainer;
 	private static EV3UltrasonicSensor distanceSensor;
 	private static EV3ColorSensor colorSensor;
-	private static float[] distances;
 	private static float minDistance;
 	private static float maxDistance;
 	private static String bombType;
@@ -40,7 +38,7 @@ public class Driver {
 		/*
 		 * Initialise motors and sensors
 		 */
-		LCD.drawString("Defuser v50", 0, 0);
+		LCD.drawString("Defuser v51", 0, 0);
 		initialise();
 		
 		
@@ -64,9 +62,12 @@ public class Driver {
 		
 	}
 	
+	/**
+	 * Method to initialise and calibrate the motors & sensors.
+	 */
 	private static void initialise() {
 		LCD.drawString("Initialising...", 0, 2);
-		motorContainer = initMotorContainer();
+		motorContainer = new MotorContainer(new EV3LargeRegulatedMotor(MotorPort.A), new EV3LargeRegulatedMotor(MotorPort.B));
 		distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
 		colorSensor = new EV3ColorSensor(SensorPort.S2);
 		
@@ -82,15 +83,14 @@ public class Driver {
 		/*
 		 * Calibrate distance sensor
 		 */
-		LCD.drawString("Calibration..", 2, 2);
-		LCD.drawString("Press ENTER", 2, 3);
+		LCD.drawString("Calibration..", 0, 2);
+		LCD.drawString("Press ENTER", 0, 3);
 		Button.ENTER.waitForPressAndRelease();
-		distances = calibrateDistance(distanceSensor);
-		minDistance = distances[0];
-		maxDistance = distances[1];
-		LCD.clear();
-		LCD.drawString("Calibration complete", 2, 2);
-		LCD.drawString("Press ENTER", 2, 3);
+		
+		calibrateDistance(distanceSensor);
+		
+		LCD.drawString("Calibration complete", 0, 2);
+		LCD.drawString("Press ENTER", 0, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
 		
@@ -108,6 +108,7 @@ public class Driver {
 			}	
 		}
 		LCD.clear();
+		
 		/*
 		 * Initialise the abstraction of the bomb given the bombType
 		 */
@@ -117,23 +118,13 @@ public class Driver {
 	
 	
 	/**
-	 * Initialises a new MotorContainer
-	 * @return the new MotorContainer
-	 */
-	private static MotorContainer initMotorContainer() {
-		BaseRegulatedMotor mLeft = new EV3LargeRegulatedMotor(MotorPort.A);
-		BaseRegulatedMotor mRight = new EV3LargeRegulatedMotor(MotorPort.B);
-		return new MotorContainer(mLeft, mRight);
-	}
-	
-	/**
 	 * Calibrates the distance sensor, allowing the robot to slowly turn around the bomb.
 	 * @param distanceSensor the sensor to calibrate.
 	 * @return an array of two distances - [0] the minimum distance the robot should be from the box, and [1] the maximum.
 	 */
-	private static float[] calibrateDistance(EV3UltrasonicSensor distanceSensor) {
-		float minDistance, currentDistance, maxDistance;
+	private static void calibrateDistance(EV3UltrasonicSensor distanceSensor) {
 		float[] sample = new float[1];
+		float currentDistance;
 		SampleProvider sp = distanceSensor.getDistanceMode();
 		
 		LCD.clear();
@@ -144,9 +135,9 @@ public class Driver {
 		while(true) {
 			sp.fetchSample(sample, 0);
 			currentDistance = sample[0];
-			minDistance = currentDistance - (DISTANCE_DIFFERENCE / 2);
-			maxDistance = currentDistance + (DISTANCE_DIFFERENCE / 2);
 			if (Button.ENTER.isDown()) {
+				minDistance = currentDistance - (DISTANCE_DIFFERENCE / 2);
+				maxDistance = currentDistance + (DISTANCE_DIFFERENCE / 2);
 				LCD.clear();
 				LCD.drawString("ENTER to calibrate", 0, 1);
 				LCD.drawString("Min: " + minDistance, 0, 2);
@@ -155,11 +146,9 @@ public class Driver {
 				LCD.drawString("ESCAPE to finish", 0, 5);
 			}
 			if (Button.ESCAPE.isDown()) {
+				LCD.clear();
 				break;
 			}
 		}
-		float[] distances = {minDistance, currentDistance, maxDistance};
-		return distances;
 	}
-
 }
