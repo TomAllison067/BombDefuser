@@ -46,7 +46,7 @@ public class ButtonPress implements Behavior{
 	@Override
 	public void action() {
 		LCD.clear();
-		LCD.drawString("Flipper Active", 0, 6);
+		LCD.drawString("Press Active", 0, 6);
 		bomb.startTask();
 		
 		container.turnRight(90);
