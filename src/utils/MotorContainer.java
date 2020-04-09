@@ -87,6 +87,7 @@ public class MotorContainer {
 	 * Move the motors backwards simultaneously at the current speed
 	 */
 	public void backward() {
+		setSpeed(FORWARD_SPEED);
 		mLeft.startSynchronization();
 		mLeft.backward();
 		mRight.backward();
