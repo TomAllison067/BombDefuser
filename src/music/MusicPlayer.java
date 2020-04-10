@@ -23,15 +23,16 @@ public class MusicPlayer implements Runnable {
 	 * Calls playTune(fileName). If musicToPlay is null, simply do nothing.
 	 */
 	public void run() {
-		try {
-			while (true) {
-				if (musicToPlay != null) {
+		while (true) {
+			if (musicToPlay != null) {
+				try {
 					playTune(musicToPlay.getFileName());
-				} else {
+				} catch (InterruptedException e) {
 					Thread.yield();
 				}
+			} else {
+				Thread.yield();
 			}
-		} catch (InterruptedException e) {
 		}
 	}
 
@@ -55,15 +56,14 @@ public class MusicPlayer implements Runnable {
 	 * @param music the music to play
 	 */
 	public static void putMusicOn(Music music) {
+		musicToPlay = music;
 		if (myThread == null) {
-			musicToPlay = music;
 			myThread = new Thread(new MusicPlayer());
 			myThread.setDaemon(true);
 			myThread.start();
 		}
-		if (musicToPlay != music) {
+		else {
 			myThread.interrupt();
-			music = musicToPlay;
 		}
 	}
 }
