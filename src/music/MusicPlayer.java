@@ -79,7 +79,7 @@ public class MusicPlayer implements Runnable {
 	
 	// Here is the broken version - should work, but leads to NullPointerException in lejos.internal.ev3.EV3AUDIO.playSample
 	
-//	public static void putMusicOn(Music music) {
+// public static void putMusicOn(Music music) {
 //		musicToPlay = music;
 //		if (myThread != null) {
 //			myThread.interrupt();
