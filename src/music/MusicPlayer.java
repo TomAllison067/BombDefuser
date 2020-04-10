@@ -3,7 +3,6 @@ package music;
 import java.io.File;
 
 import lejos.hardware.Sound;
-import lejos.utility.Delay;
 
 /**
  * MusicPlayer can start a thread that plays audio files, or nothing. It can
@@ -67,18 +66,22 @@ public class MusicPlayer implements Runnable {
 	 * @param music the music to play
 	 */
 	public static void putMusicOn(Music music) {
-		musicToPlay = music;
-		if (myThread == null) {
-			myThread = new Thread(new MusicPlayer());
+		if (music == null) {
+			myThread.interrupt();
+		} else {
 			musicToPlay = music;
-			myThread.setDaemon(true);
-			myThread.start();
+			if (myThread == null) {
+				myThread = new Thread(new MusicPlayer());
+				myThread.setDaemon(true);
+				myThread.start();
+			}
 		}
+
 	}
 
-	
-	// Here is the broken version - should work, but leads to NullPointerException in lejos.internal.ev3.EV3AUDIO.playSample
-	
+	// Here is the broken version - should work, but leads to NullPointerException
+	// in lejos.internal.ev3.EV3AUDIO.playSample
+
 // public static void putMusicOn(Music music) {
 //		musicToPlay = music;
 //		if (myThread != null) {
