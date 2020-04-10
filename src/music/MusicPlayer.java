@@ -3,6 +3,7 @@ package music;
 import java.io.File;
 
 import lejos.hardware.Sound;
+import lejos.utility.Delay;
 
 /**
  * MusicPlayer can start a thread that plays audio files, or nothing. It can
@@ -16,22 +17,22 @@ import lejos.hardware.Sound;
  *
  */
 public class MusicPlayer implements Runnable {
-	private static Music musicToPlay = null;
-	private static Thread myThread = null;
+	private static Music musicToPlay;
+	private static Thread myThread;
 
 	/**
 	 * Calls playTune(fileName). If musicToPlay is null, simply do nothing.
 	 */
 	public void run() {
 		while (true) {
-			if (musicToPlay != null) {
-				try {
+			try {
+				if (musicToPlay != null) {
 					playTune(musicToPlay.getFileName());
-				} catch (InterruptedException e) {
+				} else {
 					Thread.yield();
 				}
-			} else {
-				Thread.yield();
+			} catch (InterruptedException e) {
+				break;
 			}
 		}
 	}
@@ -40,7 +41,7 @@ public class MusicPlayer implements Runnable {
 	 * Called by run() to actually play the audio file.
 	 * 
 	 * @param fileName the filename of the audio file
-	 * @throws InterruptedException when interrupted - allowing us to stop the music
+	 * @throws InterruptedException
 	 */
 	private void playTune(String fileName) throws InterruptedException {
 		int time = Sound.playSample(new File(fileName));
@@ -49,9 +50,19 @@ public class MusicPlayer implements Runnable {
 
 	/**
 	 * Starts a thread that plays the music given as an argument (or nothing if the
-	 * argument is null). If a thread is already running and this method is called
-	 * with a different argument, the thread is interrupted to switch to the new
-	 * music.
+	 * argument is null).
+	 * 
+	 * If a thread is already running, the music is changed AFTER the current sample
+	 * finishes playing.
+	 * 
+	 * Notes: The original idea was to interrupt the samples and play the new one
+	 * straight away (to change music quickly), but I couldn't seem to implement
+	 * this. Every attempt to implement this lead to:
+	 * "java.lang.NullPointerException at
+	 * lejos.internal.ev3.EV3Audio.playSample(EV3Audio.java:341)"
+	 * 
+	 * You CAN stop the music early by passing null as an argument, but you can no
+	 * longer play any more samples afterwards.
 	 * 
 	 * @param music the music to play
 	 */
@@ -59,11 +70,27 @@ public class MusicPlayer implements Runnable {
 		musicToPlay = music;
 		if (myThread == null) {
 			myThread = new Thread(new MusicPlayer());
+			musicToPlay = music;
 			myThread.setDaemon(true);
 			myThread.start();
 		}
-		else {
-			myThread.interrupt();
-		}
 	}
+
+	
+	// Here is the broken version - should work, but leads to NullPointerException in lejos.internal.ev3.EV3AUDIO.playSample
+	
+//	public static void putMusicOn(Music music) {
+//		musicToPlay = music;
+//		if (myThread != null) {
+//			myThread.interrupt();
+//			myThread = new Thread(new MusicPlayer());
+//			myThread.setDaemon(true);
+//			myThread.start();
+//		} else {
+//			myThread = new Thread(new MusicPlayer());
+//			myThread.setDaemon(true);
+//			myThread.start();
+//		}
+//	}
+
 }
