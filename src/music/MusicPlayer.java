@@ -77,7 +77,6 @@ public class MusicPlayer implements Runnable {
 				myThread.start();
 			}
 		}
-
 	}
 
 	
