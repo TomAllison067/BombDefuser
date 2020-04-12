@@ -47,7 +47,12 @@ public class Flipper implements Behavior{
 		LCD.clear();
 		LCD.drawString("Flipper Active", 0, 6);
 		
-		bomb.startTask();
+		// sets a flag in the bomb class to prevent other behaviours from talking control whilst this behaviour runs.
+		bomb.startTask(); 
+		
+		/**
+		 * a set of parameters are sent to methods within the motorContainer class to control the robots movement.
+		 */
 		
 		mFront.setSpeed (1300);
 

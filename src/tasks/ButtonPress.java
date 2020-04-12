@@ -47,6 +47,8 @@ public class ButtonPress implements Behavior{
 	public void action() {
 		LCD.clear();
 		LCD.drawString("Press Active", 0, 6);
+		
+		// sets a flag in the bomb class to prevent other behaviours from talking control whilst this behaviour runs.
 		bomb.startTask();
 		
 		container.turnRight(90);
@@ -54,6 +56,7 @@ public class ButtonPress implements Behavior{
 		long startTime, stopTime;
 		startTime = System.currentTimeMillis();
 		
+		// a button is used to sense when the robot has made contact with the bomb. 
 		container.backward();
 		while(true) {
 			touch.fetchSample(sample, 0);

@@ -41,6 +41,7 @@ public class WireCut implements Behavior{
 		LCD.clear();
 		LCD.drawString("WireCut Active", 0, 6);
 		
+		// sets a flag in the bomb class to prevent other behaviours from talking control whilst this behaviour runs.
 		bomb.startTask();
 		
 		LCD.drawString("Not implemented", 2, 3);
