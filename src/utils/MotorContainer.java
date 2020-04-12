@@ -2,13 +2,22 @@ package utils;
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.utility.Delay;
 
+/**
+ * This class takes care of all the functions needed to manipulate
+ * the motion of the robot.
+ * 
+ * Calculations
+ * 
+ * Time taken to turn 90 deg in place by turning both 
+ * the wheel at 360 deg/sec in opposite directions is 1380ms. (was calculated manually)
+ * Therefore to turn 1 deg it takes ~ 15 ms.
+ * 
+ * @author venkatesh
+ *
+ */
 public class MotorContainer {
 
-	/**
-	 * time in millis for 90deg -> 1380
-	 * 1deg -> 15
-	 */
-	
+	// The number is justified by the calculations made above 
 	private static final long MILLISECOND_1_DEGREE_INPLACE = 15;
 	static final int INNER_TURN_SPEED = 80;
 	static final int OUTER_TURN_SPEED = 185;
