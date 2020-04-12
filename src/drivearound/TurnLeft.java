@@ -34,7 +34,6 @@ public class TurnLeft implements Behavior {
 	@Override
 	public void action() {
 		container.correctLeft();
-		// Potentially move forward a bit before/after, then correct left???
 		
 	}
 

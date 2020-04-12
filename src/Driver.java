@@ -22,6 +22,12 @@ import utils.Bomb;
 import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
+/**
+ * The Driver class is used to start the program and actually run the robot.
+ * It 
+ * @author Tom
+ *
+ */
 public class Driver {
 	private static final float DISTANCE_DIFFERENCE = 0.025f;
 	private static MotorContainer motorContainer;
@@ -63,7 +69,11 @@ public class Driver {
 	}
 	
 	/**
-	 * Method to initialise and calibrate the motors & sensors.
+	 * Method to initialise the robot.
+	 * 1) Initialises the motors and sensors
+	 * 2) Takes the user through distance sensor calibration
+	 * 3) Connects to the phone and waits for a QR code to be read
+	 * 4) Initialises the Bomb object given the QR reading, and starts the countdown
 	 */
 	private static void initialise() {
 		LCD.drawString("Initialising...", 0, 2);
@@ -100,7 +110,7 @@ public class Driver {
 		AndroidSensor phone = new AndroidSensor();
 		phone.startThread();
 		String qrInfo;
-		while(true) { // Can we make this bit all one method to make it neater or is it more effort than it's worth?
+		while(true) { // Can we make this bit a separate method to make it neater or is that more effort than it's worth?
 			qrInfo = phone.getMessage();
 			if(!qrInfo.equals("")) {
 				bombType = qrInfo;
@@ -120,7 +130,6 @@ public class Driver {
 	/**
 	 * Calibrates the distance sensor, allowing the robot to slowly turn around the bomb.
 	 * @param distanceSensor the sensor to calibrate.
-	 * @return an array of two distances - [0] the minimum distance the robot should be from the box, and [1] the maximum.
 	 */
 	private static void calibrateDistance(EV3UltrasonicSensor distanceSensor) {
 		float[] sample = new float[1];

@@ -56,7 +56,7 @@ public class MusicPlayer implements Runnable {
 	 * 
 	 * Notes: The original idea was to interrupt the samples and play the new one
 	 * straight away (to change music quickly), but I couldn't seem to implement
-	 * this. Every attempt to implement this lead to:
+	 * this. Interrupting the playSample method, changing musicToPlay and then starting a new thread invariably leads to:
 	 * "java.lang.NullPointerException at
 	 * lejos.internal.ev3.EV3Audio.playSample(EV3Audio.java:341)"
 	 * 
@@ -79,8 +79,14 @@ public class MusicPlayer implements Runnable {
 
 	}
 
-	// Here is the broken version - should work, but leads to NullPointerException
-	// in lejos.internal.ev3.EV3AUDIO.playSample
+	
+	
+	
+	
+	/**
+	 * Below is the broken version - should work, but leads to NullPointerException
+	 * in lejos.internal.ev3.EV3AUDIO.playSample when a new thread is started when musicToPlay has changed.
+	 */
 
 // public static void putMusicOn(Music music) {
 //		musicToPlay = music;
