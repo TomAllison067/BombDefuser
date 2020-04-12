@@ -7,6 +7,12 @@ import lejos.robotics.subsumption.Behavior;
 import utils.Bomb;
 import utils.MotorContainer;
 
+/**
+ * The Behaviour that makes the robot go forward when it's between the
+ * maximum and minimum distance from the box
+ * @author venkatesh
+ *
+ */
 public class MoveForward implements Behavior {
 
 	private MotorContainer container;
@@ -25,6 +31,9 @@ public class MoveForward implements Behavior {
 		
 	}
 
+	/**
+	 * Takes control of the behaviour if the condition is satisfied
+	 */
 	@Override
 	public boolean takeControl() {
 		SampleProvider provider = sensor.getDistanceMode();
