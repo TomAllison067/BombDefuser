@@ -24,7 +24,7 @@ import utils.MotorContainer;
 
 /**
  * The Driver class is used to start the program and actually run the robot.
- * It 
+ * It initialises the motors & sensors, allows the user to calibrate the distance sensor, connects to an Android phone to read a QR code and then starts the arbitrator.
  * @author Tom
  *
  */
