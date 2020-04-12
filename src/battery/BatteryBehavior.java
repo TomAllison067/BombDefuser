@@ -12,9 +12,7 @@ import utils.Bomb;
 import utils.MotorContainer;
 
 /**
- * Behaviour to gracefully shut down the robot if the battery voltage drops
- * below a certain level
- * 
+ * Behaviour to gracefully shut down the robot if the battery voltage drops below a certain level
  * @author Tom
  */
 public class BatteryBehavior implements Behavior {
@@ -24,6 +22,13 @@ public class BatteryBehavior implements Behavior {
 	private EV3UltrasonicSensor us;
 	private EV3ColorSensor cs;
 
+	/**
+	 * Constructs the BatteryBehaviour object
+	 * @param container the MotorContainer containing the motors used
+	 * @param bomb the Bomb currently active
+	 * @param us the EV3UltrasonicSensor in use
+	 * @param cs the EV3ColorSensor in use
+	 */
 	public BatteryBehavior(MotorContainer container, Bomb bomb, EV3UltrasonicSensor us,
 			EV3ColorSensor cs) {
 		this.container = container;
@@ -32,12 +37,14 @@ public class BatteryBehavior implements Behavior {
 		this.cs = cs;
 	}
 
+	// This behaviour takes control if the battery voltage falls below a certain level.
 	@Override
 	public boolean takeControl() {
 		float currentVoltage = Battery.getVoltage();
 		return currentVoltage <= SHUTDOWN_VOLTAGE;
 	}
 
+	// The action taken when the battery voltage is low
 	public void action() {
 		// Stop the countdown, silence any music and stop any motors
 		bomb.stopCountdown();
@@ -70,7 +77,8 @@ public class BatteryBehavior implements Behavior {
 }
 
 /**
- * Simple thread to emit warning beeps every 2 seconds
+ * Simple thread to emit warning beeps every 2 seconds.
+ * Perhaps the user is not paying attention and wondering why the robot has stopped - this should alert them.
  * @author Tom
  */
 class Beeper implements Runnable {

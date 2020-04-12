@@ -36,14 +36,15 @@ public class Retreat implements Behavior{
 	public void action() {
 		// Run from the bomb
 		motorContainer.stop();
-		motorContainer.turnLeft(180);
+		motorContainer.turnRight(90);
 		motorContainer.forward();
 		Delay.msDelay(2000);
-		MusicPlayer.putMusicOn(null);
+		motorContainer.stop();
 		
-		// Close sensors
+		// Close sensors, stop music
 		distanceSensor.close();
 		colorSensor.close();
+		MusicPlayer.putMusicOn(null);
 		
 		// Exit 
 		System.exit(0);

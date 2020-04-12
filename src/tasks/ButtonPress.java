@@ -39,34 +39,37 @@ public class ButtonPress implements Behavior{
 		
 		provider.fetchSample(sample, 0);
 		
-		return bomb.getNextColor() == 'B' && sample[0] == Color.BLUE;
+		return bomb.getNextColor() == 'G' && sample[0] == Color.GREEN;
 		
 	}
 
 	@Override
 	public void action() {
-		
 		LCD.clear();
-		LCD.drawString("Flipper Active", 0, 6);
+		LCD.drawString("Press Active", 0, 6);
 		
+		// sets a flag in the bomb class to prevent other behaviours from talking control whilst this behaviour runs.
 		bomb.startTask();
 		
 		container.turnRight(90);
 		
-		container.backward();
+		long startTime, stopTime;
+		startTime = System.currentTimeMillis();
 		
+		// a button is used to sense when the robot has made contact with the bomb. 
+		container.backward();
 		while(true) {
 			touch.fetchSample(sample, 0);
 			if(sample[0]==1) {
 				container.stop();
+				stopTime = System.currentTimeMillis();
 				break;
-				
 			}
 		}
 		touchSensor.close();
 		
 		container.forward();
-		Delay.msDelay(2000);
+		Delay.msDelay(stopTime - startTime);
 		container.stop();
 		
 		container.turnLeft(90);

@@ -6,14 +6,21 @@ import lejos.hardware.lcd.LCD;
 import music.Music;
 import music.MusicPlayer;
 
-
+/**
+ * a class built to simulate the timer on the bomb. the class triggers events and behaviours as time passes.
+ * @author harry
+ *
+ */
 public class Countdown extends TimerTask{
     private int count = 0;
     private AtomicBoolean retreat;
         
+    // a flag that will trigger the Retreat behaviour
     public Countdown(AtomicBoolean retreat) {
     	this.retreat = retreat;
     }
+    
+    // a timertask that displays the time remaining on the countdown.
     
     public void run(){
     	

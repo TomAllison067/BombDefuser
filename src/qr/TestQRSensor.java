@@ -2,6 +2,11 @@ package qr;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 
+/**
+ * A simple class to test the Android phone/connection/QR reader implementation.
+ * @author Tom
+ *
+ */
 public class TestQRSensor {
 	public static void main(String[] args) {
 		LCD.drawString("TestQRSensor v2", 0, 0);

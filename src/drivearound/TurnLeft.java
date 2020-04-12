@@ -14,7 +14,7 @@ public class TurnLeft implements Behavior {
 	private Bomb bomb;
 	private float maxDistance;
 	
-	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float maxDistance,Bomb bomb) {
+	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float maxDistance, Bomb bomb) {
 		super();
 		this.container = container;
 		this.sensor = sensor;
@@ -26,9 +26,7 @@ public class TurnLeft implements Behavior {
 	public boolean takeControl() {
 		SampleProvider provider = sensor.getDistanceMode();
 		float[] sample = new float[1];
-		
 		provider.fetchSample(sample, 0);
-		
 		return !bomb.isTaskActive() && sample[0] > maxDistance;
 		
 	}
@@ -36,7 +34,6 @@ public class TurnLeft implements Behavior {
 	@Override
 	public void action() {
 		container.correctLeft();
-		// Potentially move forward a bit before/after, then correct left???
 		
 	}
 
