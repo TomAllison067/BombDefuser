@@ -7,6 +7,13 @@ import lejos.robotics.subsumption.Behavior;
 import utils.Bomb;
 import utils.MotorContainer;
 
+/**
+ * Turns the robot away from the box if the robot is too close
+ * (closer than the minimum distance given to it). Gradually corrects the
+ * distance between them.
+ * @author venkatesh
+ *
+ */
 public class TurnRight implements Behavior {
 
 	private MotorContainer container;
@@ -21,7 +28,10 @@ public class TurnRight implements Behavior {
 		this.bomb = bomb;
 		this.minDistance = minDistance;
 	}
-
+	
+	/**
+	 * Takes control of the behaviour if the robot is closer than expected.
+	 */
 	@Override
 	public boolean takeControl() {
 		SampleProvider provider = sensor.getDistanceMode();
