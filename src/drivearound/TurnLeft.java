@@ -7,6 +7,13 @@ import lejos.robotics.subsumption.Behavior;
 import utils.Bomb;
 import utils.MotorContainer;
 
+/**
+ * Turns the robot towards the box if the distance between the robot and the box is 
+ * more than the maximum allowed distance, basically correcting the 
+ * distance between them or gradually turning the robot
+ * @author venkatesh
+ *
+ */
 public class TurnLeft implements Behavior {
 
 	private MotorContainer container;
@@ -22,6 +29,9 @@ public class TurnLeft implements Behavior {
 		this.maxDistance = maxDistance;
 	}
 
+	/**
+	 * Take control of the behaviour if the robot is farther than expected
+	 */
 	@Override
 	public boolean takeControl() {
 		SampleProvider provider = sensor.getDistanceMode();
