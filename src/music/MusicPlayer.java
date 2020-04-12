@@ -20,7 +20,7 @@ public class MusicPlayer implements Runnable {
 	private static Thread myThread;
 
 	/**
-	 * Calls playTune(fileName). If musicToPlay is null, simply do nothing.
+	 * Calls playTune(fileName) to play the music. If musicToPlay is null, simply does nothing.
 	 */
 	public void run() {
 		while (true) {
@@ -59,6 +59,7 @@ public class MusicPlayer implements Runnable {
 	 * this. Interrupting the playSample method, changing musicToPlay and then starting a new thread invariably leads to:
 	 * "java.lang.NullPointerException at
 	 * lejos.internal.ev3.EV3Audio.playSample(EV3Audio.java:341)"
+	 * It seems you have to let an audio sample finish naturally to change to the next sample.
 	 * 
 	 * You CAN stop the music early by passing null as an argument, but you can no
 	 * longer play any more samples afterwards.

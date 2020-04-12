@@ -1,6 +1,6 @@
 package qr;
 /**
- * Class to represent the Android phone sensor.
+ * Container class to represent the Android phone sensor.
  * It contains a ConnectionThread, which when started will attempt to connect via Bluetooth to the Android phone and monitor for any new QR code readings.
  * @author Tom Allison
  *

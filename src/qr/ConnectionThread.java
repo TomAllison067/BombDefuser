@@ -42,7 +42,9 @@ public class ConnectionThread extends Thread {
 				// Read the QR code
 				while (true) {
 					String qr = readQR(in, buffer);
-					if (qr != null) qrMessage = qr; // Should only update qrMessage if a QR code has actually been seen and understood.
+					if (qr != null) {
+						qrMessage = qr; // Should only update qrMessage if a QR code has actually been seen and understood.
+					}
 				}
 			}
 		} catch (IOException e) {
