@@ -12,7 +12,7 @@ import lejos.hardware.Sound;
  * what is currently playing then the music will change. To silence it, call
  * putMusicOn(null).
  * 
- * @author Tom Allison
+ * @author Tom
  *
  */
 public class MusicPlayer implements Runnable {
@@ -20,7 +20,8 @@ public class MusicPlayer implements Runnable {
 	private static Thread myThread;
 
 	/**
-	 * Calls playTune(fileName) to play the music. If musicToPlay is null, simply does nothing.
+	 * Calls playTune(fileName) to play the music. If musicToPlay is null, simply
+	 * does nothing.
 	 */
 	public void run() {
 		while (true) {
@@ -56,10 +57,10 @@ public class MusicPlayer implements Runnable {
 	 * 
 	 * Notes: The original idea was to interrupt the samples and play the new one
 	 * straight away (to change music quickly), but I couldn't seem to implement
-	 * this. Interrupting the playSample method, changing musicToPlay and then starting a new thread invariably leads to:
-	 * "java.lang.NullPointerException at
-	 * lejos.internal.ev3.EV3Audio.playSample(EV3Audio.java:341)"
-	 * It seems you have to let an audio sample finish naturally to change to the next sample.
+	 * this. Interrupting the playSample method, changing musicToPlay and then
+	 * starting a new thread invariably leads to: "java.lang.NullPointerException at
+	 * lejos.internal.ev3.EV3Audio.playSample(EV3Audio.java:341)" It seems you have
+	 * to let an audio sample finish naturally to change to the next sample.
 	 * 
 	 * You CAN stop the music early by passing null as an argument, but you can no
 	 * longer play any more samples afterwards.
@@ -67,11 +68,11 @@ public class MusicPlayer implements Runnable {
 	 * @param music the music to play
 	 */
 	public static void putMusicOn(Music music) {
-		if (music == null) {
-			myThread.interrupt();
-		} else {
+		if (musicToPlay != music) {
 			musicToPlay = music;
-			if (myThread == null) {
+			if (music == null) {
+				myThread.interrupt();
+			} else if (myThread == null) {
 				myThread = new Thread(new MusicPlayer());
 				myThread.setDaemon(true);
 				myThread.start();
@@ -79,13 +80,10 @@ public class MusicPlayer implements Runnable {
 		}
 	}
 
-	
-	
-	
-	
 	/**
 	 * Below is the broken version - should work, but leads to NullPointerException
-	 * in lejos.internal.ev3.EV3AUDIO.playSample when a new thread is started when musicToPlay has changed.
+	 * in lejos.internal.ev3.EV3AUDIO.playSample when a new thread is started when
+	 * musicToPlay has changed.
 	 */
 
 // public static void putMusicOn(Music music) {

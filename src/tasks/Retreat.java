@@ -1,4 +1,5 @@
 package tasks;
+
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
@@ -10,23 +11,24 @@ import utils.MotorContainer;
 /**
  * This behaviour is assumed if the bomb's countdown timer starts to run low.
  * The robot turns and runs away from the bomb before it "explodes"
+ * 
  * @author Tom
  *
  */
-public class Retreat implements Behavior{
+public class Retreat implements Behavior {
 	private MotorContainer motorContainer;
 	private Bomb bomb;
 	private EV3UltrasonicSensor distanceSensor;
 	private EV3ColorSensor colorSensor;
-	
-	public Retreat(MotorContainer motorContainer, Bomb bomb, EV3UltrasonicSensor distanceSensor, EV3ColorSensor colorSensor) {
+
+	public Retreat(MotorContainer motorContainer, Bomb bomb, EV3UltrasonicSensor distanceSensor,
+			EV3ColorSensor colorSensor) {
 		this.motorContainer = motorContainer;
 		this.bomb = bomb;
 		this.distanceSensor = distanceSensor;
 		this.colorSensor = colorSensor;
 	}
-	
-	
+
 	@Override
 	public boolean takeControl() {
 		return bomb.getRetreat();
@@ -40,21 +42,21 @@ public class Retreat implements Behavior{
 		motorContainer.forward();
 		Delay.msDelay(2000);
 		motorContainer.stop();
-		
+
 		// Close sensors, stop music
 		distanceSensor.close();
 		colorSensor.close();
 		MusicPlayer.putMusicOn(null);
-		
-		// Exit 
+
+		// Exit
 		System.exit(0);
-		
+
 	}
 
 	@Override
 	public void suppress() {
 		// TODO Auto-generated method stub
-		
+
 	}
-		
+
 }

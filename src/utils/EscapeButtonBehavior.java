@@ -11,7 +11,7 @@ import music.MusicPlayer;
  * Behavior to end the robot's program when the grey interrupt button is
  * pressed. As specified in the project requirements.
  * 
- * @author Tom Allison
+ * @author Tom
  */
 public class EscapeButtonBehavior implements Behavior {
 	private MotorContainer motorContainer;

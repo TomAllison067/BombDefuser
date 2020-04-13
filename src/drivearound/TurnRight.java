@@ -1,6 +1,5 @@
 package drivearound;
 
-
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
@@ -8,9 +7,9 @@ import utils.Bomb;
 import utils.MotorContainer;
 
 /**
- * Turns the robot away from the box if the robot is too close
- * (closer than the minimum distance given to it). Gradually corrects the
- * distance between them.
+ * Turns the robot away from the box if the robot is too close (closer than the
+ * minimum distance given to it). Gradually corrects the distance between them.
+ * 
  * @author venkatesh
  *
  */
@@ -20,7 +19,7 @@ public class TurnRight implements Behavior {
 	private EV3UltrasonicSensor sensor;
 	private Bomb bomb;
 	private float minDistance;
-	
+
 	public TurnRight(MotorContainer container, EV3UltrasonicSensor sensor, float minDistance, Bomb bomb) {
 		super();
 		this.container = container;
@@ -28,7 +27,7 @@ public class TurnRight implements Behavior {
 		this.bomb = bomb;
 		this.minDistance = minDistance;
 	}
-	
+
 	/**
 	 * Takes control of the behaviour if the robot is closer than expected.
 	 */

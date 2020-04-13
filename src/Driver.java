@@ -23,8 +23,11 @@ import utils.EscapeButtonBehavior;
 import utils.MotorContainer;
 
 /**
- * The Driver class is used to start the program and actually run the robot.
- * It initialises the motors & sensors, allows the user to calibrate the distance sensor, connects to an Android phone to read a QR code and then starts the arbitrator.
+ * The Driver class is used to start the program and actually run the robot. It
+ * initialises the motors & sensors, allows the user to calibrate the distance
+ * sensor, connects to an Android phone to read a QR code and then starts the
+ * arbitrator.
+ * 
  * @author Tom
  *
  */
@@ -37,50 +40,48 @@ public class Driver {
 	private static float maxDistance;
 	private static String bombType;
 	private static Bomb bomb;
-	
+
 	public static void main(String[] args) {
-		
 
 		/*
 		 * Initialise motors and sensors
 		 */
 		LCD.drawString("Defuser v56", 0, 0);
 		initialise();
-		
-		
+
 		/*
 		 * Now we're ready to go!
 		 */
-		Arbitrator arb = new Arbitrator(new Behavior[] {new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
-														new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
-														new MoveForward(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
-														new Flipper(motorContainer, bomb, colorSensor), 
-														new ButtonPress(motorContainer, bomb, colorSensor),
-														new WireCut(motorContainer, bomb, colorSensor),
-														new DefusalComplete(motorContainer, bomb, distanceSensor, colorSensor),
-														new Retreat(motorContainer, bomb, distanceSensor, colorSensor),
-														new BatteryBehavior(motorContainer, bomb, distanceSensor, colorSensor),
-														new EscapeButtonBehavior(motorContainer, bomb, distanceSensor, colorSensor),
+		Arbitrator arb = new Arbitrator(new Behavior[] {
+				new TurnLeft(motorContainer, distanceSensor, maxDistance, bomb),
+				new TurnRight(motorContainer, distanceSensor, minDistance, bomb),
+				new MoveForward(motorContainer, distanceSensor, minDistance, maxDistance, bomb),
+				new Flipper(motorContainer, bomb, colorSensor), new ButtonPress(motorContainer, bomb, colorSensor),
+				new WireCut(motorContainer, bomb, colorSensor),
+				new DefusalComplete(motorContainer, bomb, distanceSensor, colorSensor),
+				new Retreat(motorContainer, bomb, distanceSensor, colorSensor),
+				new BatteryBehavior(motorContainer, bomb, distanceSensor, colorSensor),
+				new EscapeButtonBehavior(motorContainer, bomb, distanceSensor, colorSensor),
 
 		});
 		System.out.println("\n\n\n\n\n\n\n\n"); // Clear the 'Arbitrator created' text from the Arbitrator's constructor
 		arb.go();
-		
+
 	}
-	
+
 	/**
-	 * Method to initialise the robot.
-	 * 1) Initialises the motors and sensors
-	 * 2) Takes the user through distance sensor calibration
-	 * 3) Connects to the phone and waits for a QR code to be read
-	 * 4) Initialises the Bomb object given the QR reading, and starts the countdown
+	 * Method to initialise the robot. 1) Initialises the motors and sensors 2)
+	 * Takes the user through distance sensor calibration 3) Connects to the phone
+	 * and waits for a QR code to be read 4) Initialises the Bomb object given the
+	 * QR reading, and starts the countdown
 	 */
 	private static void initialise() {
 		LCD.drawString("Initialising...", 0, 2);
-		motorContainer = new MotorContainer(new EV3LargeRegulatedMotor(MotorPort.A), new EV3LargeRegulatedMotor(MotorPort.B));
+		motorContainer = new MotorContainer(new EV3LargeRegulatedMotor(MotorPort.A),
+				new EV3LargeRegulatedMotor(MotorPort.B));
 		distanceSensor = new EV3UltrasonicSensor(SensorPort.S1);
 		colorSensor = new EV3ColorSensor(SensorPort.S2);
-		
+
 		/*
 		 * Welcome screen
 		 */
@@ -88,60 +89,62 @@ public class Driver {
 		LCD.drawString("Press ENTER", 0, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
-		
-		
+
 		/*
 		 * Calibrate distance sensor
 		 */
 		LCD.drawString("Calibration..", 0, 2);
 		LCD.drawString("Press ENTER", 0, 3);
 		Button.ENTER.waitForPressAndRelease();
-		
+
 		calibrateDistance(distanceSensor);
-		
+
 		LCD.drawString("Calibration complete", 0, 2);
 		LCD.drawString("Press ENTER", 0, 3);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
-		
+
 		/*
-		 * Connect to the phone and scan in the QR code in order to get the bombType to defuse (and thus defusal order)
+		 * Connect to the phone and scan in the QR code in order to get the bombType to
+		 * defuse (and thus defusal order)
 		 */
 		AndroidSensor phone = new AndroidSensor();
 		phone.startThread();
 		String qrInfo;
-		while(true) { // Can we make this bit a separate method to make it neater or is that more effort than it's worth?
+		while (true) { // Can we make this bit a separate method to make it neater or is that more
+						// effort than it's worth?
 			qrInfo = phone.getMessage();
-			if(!qrInfo.equals("")) {
+			if (!qrInfo.equals("")) {
 				bombType = qrInfo;
 				break;
-			}	
+			}
 		}
 		LCD.clear();
-		
+
 		/*
 		 * Initialise the abstraction of the bomb given the bombType
 		 */
 		bomb = new Bomb(bombType);
 		bomb.startBomb();
 	}
-	
-	
+
 	/**
-	 * Calibrates the distance sensor, allowing the robot to slowly turn around the bomb.
+	 * Calibrates the distance sensor, allowing the robot to slowly turn around the
+	 * bomb.
+	 * 
 	 * @param distanceSensor the sensor to calibrate.
 	 */
 	private static void calibrateDistance(EV3UltrasonicSensor distanceSensor) {
 		float[] sample = new float[1];
 		float currentDistance;
 		SampleProvider sp = distanceSensor.getDistanceMode();
-		
+
 		LCD.clear();
 		LCD.drawString("Place the robot...", 0, 0);
 		LCD.drawString("ENTER to calibrate", 0, 1);
 		LCD.drawString("ESCAPE to finish", 0, 5);
-		
-		while(true) {
+
+		while (true) {
 			sp.fetchSample(sample, 0);
 			currentDistance = sample[0];
 			if (Button.ENTER.isDown()) {

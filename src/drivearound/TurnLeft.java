@@ -1,6 +1,5 @@
 package drivearound;
 
-
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
@@ -8,9 +7,10 @@ import utils.Bomb;
 import utils.MotorContainer;
 
 /**
- * Turns the robot towards the box if the distance between the robot and the box is 
- * more than the maximum allowed distance, basically correcting the 
- * distance between them or gradually turning the robot
+ * Turns the robot towards the box if the distance between the robot and the box
+ * is more than the maximum allowed distance, basically correcting the distance
+ * between them or gradually turning the robot
+ * 
  * @author venkatesh
  *
  */
@@ -20,7 +20,7 @@ public class TurnLeft implements Behavior {
 	private EV3UltrasonicSensor sensor;
 	private Bomb bomb;
 	private float maxDistance;
-	
+
 	public TurnLeft(MotorContainer container, EV3UltrasonicSensor sensor, float maxDistance, Bomb bomb) {
 		super();
 		this.container = container;
@@ -38,13 +38,13 @@ public class TurnLeft implements Behavior {
 		float[] sample = new float[1];
 		provider.fetchSample(sample, 0);
 		return !bomb.isTaskActive() && sample[0] > maxDistance;
-		
+
 	}
 
 	@Override
 	public void action() {
 		container.correctLeft();
-		
+
 	}
 
 	@Override
